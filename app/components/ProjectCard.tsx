@@ -1,87 +1,75 @@
-"use client";
-
-import { motion } from "framer-motion";
+import type { Project } from "../data/portfolio";
 
 type ProjectCardProps = {
-  title: string;
-  tag: string;
-  description: string;
-  year: string;
-  tabColor: string;
+  project: Project;
 };
 
-const spring = { type: "spring" as const, stiffness: 400, damping: 28 };
-
-const cardVariants = {
-  rest: {},
-  hover: {},
-};
-
-export default function ProjectCard({
-  title,
-  tag,
-  description,
-  year,
-  tabColor,
-}: ProjectCardProps) {
+export default function ProjectCard({ project }: ProjectCardProps) {
   return (
-    <motion.article
-      className="relative cursor-pointer pt-3"
-      initial="rest"
-      animate="rest"
-      whileHover="hover"
-      variants={cardVariants}
+    <article
+      className="project-card group relative flex h-full flex-col overflow-hidden border border-[var(--line-strong)] bg-[var(--surface)] transition-colors duration-200"
+      style={{ ["--project-accent" as string]: `var(${project.accentVar})` }}
     >
-      <motion.div
-        className="absolute left-8 top-0 z-10 h-7 w-28 rounded-t-lg"
-        style={{ backgroundColor: tabColor }}
-        variants={{
-          rest: { y: 0 },
-          hover: { y: -8 },
-        }}
-        transition={spring}
+      <div
+        className="absolute left-0 top-0 h-full w-[2px] origin-top scale-y-0 bg-[var(--project-accent)] transition-transform duration-300 ease-out group-hover:scale-y-100 group-focus-within:scale-y-100"
+        aria-hidden="true"
       />
 
-      <motion.div
-        className="relative min-h-[320px] overflow-hidden rounded-2xl border border-neutral-200/70 bg-white shadow-sm"
-        variants={{
-          rest: { scale: 1 },
-          hover: { scale: 1.02 },
-        }}
-        transition={spring}
+      <div
+        className="relative flex h-40 items-end border-b border-[var(--line)] bg-[var(--surface-soft)] px-6 pb-5"
+        aria-hidden="true"
       >
-        <div className="h-1.5" style={{ backgroundColor: tabColor }} />
-
-        <div className="flex min-h-[calc(320px-6px)] flex-col px-8 pb-6 pt-8">
-          <p
-            className="text-[10px] font-medium uppercase tracking-[0.2em]"
-            style={{ color: tabColor }}
-          >
-            {tag}
-          </p>
-          <h3 className="mt-2 text-2xl font-semibold tracking-tight md:text-3xl">
-            {title}
-          </h3>
-          <p className="mt-3 text-sm leading-relaxed text-neutral-500">
-            {description}
-          </p>
-
-          <motion.div
-            className="overflow-hidden"
-            variants={{
-              rest: { opacity: 0, height: 0, marginTop: 0 },
-              hover: { opacity: 1, height: 148, marginTop: 24 },
-            }}
-            transition={spring}
-          >
-            <div className="flex h-32 items-center justify-center rounded-xl border border-neutral-200/60 bg-neutral-50 text-sm text-neutral-400">
-              Preview
-            </div>
-          </motion.div>
-
-          <span className="mt-auto pt-6 text-xs text-neutral-400">{year}</span>
+        <div className="absolute inset-6 border border-dashed border-[var(--line-strong)] opacity-70" />
+        <div className="relative z-10 flex items-center gap-2">
+          <span className="h-2 w-2 rounded-full bg-[var(--project-accent)] opacity-70" />
+          <span className="text-[10px] uppercase tracking-[0.18em] text-[var(--muted-soft)]">
+            Expedition {project.year}
+          </span>
         </div>
-      </motion.div>
-    </motion.article>
+      </div>
+
+      <div className="flex flex-1 flex-col px-6 py-6">
+        <h3 className="text-2xl font-semibold tracking-tight text-[var(--foreground)]">
+          {project.name}
+        </h3>
+        <p className="mt-3 text-sm leading-relaxed text-[var(--muted)]">{project.description}</p>
+
+        <dl className="mt-5 grid grid-cols-3 gap-3 text-[11px]">
+          <div>
+            <dt className="uppercase tracking-[0.16em] text-[var(--muted-soft)]">Focus</dt>
+            <dd className="mt-1 text-sm text-[var(--muted)]">{project.focus}</dd>
+          </div>
+          <div>
+            <dt className="uppercase tracking-[0.16em] text-[var(--muted-soft)]">Role</dt>
+            <dd className="mt-1 text-sm text-[var(--muted)]">{project.role}</dd>
+          </div>
+          <div>
+            <dt className="uppercase tracking-[0.16em] text-[var(--muted-soft)]">Year</dt>
+            <dd className="mt-1 text-sm text-[var(--muted)]">{project.year}</dd>
+          </div>
+        </dl>
+
+        <ul className="mt-5 flex flex-wrap gap-2">
+          {project.tags.map((tag) => (
+            <li
+              key={tag}
+              className="border border-[var(--line)] px-2 py-0.5 text-[10px] uppercase tracking-[0.14em] text-[var(--muted-soft)]"
+            >
+              {tag}
+            </li>
+          ))}
+        </ul>
+
+        <a
+          href={project.href}
+          className="link-underline focus-ring mt-auto pt-8 text-sm text-[var(--foreground)]"
+        >
+          View journey
+          <span className="link-arrow" aria-hidden="true">
+            →
+          </span>
+        </a>
+      </div>
+    </article>
   );
 }

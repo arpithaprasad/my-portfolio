@@ -1,14 +1,20 @@
+import { portfolio } from "../data/portfolio";
+import SectionLabel from "./SectionLabel";
+
 export default function About() {
   return (
-    <section id="about" className="scroll-mt-8 px-6 py-24 md:px-12">
+    <section
+      id="about"
+      className="scroll-mt-8 px-6 py-16 md:px-12 md:py-20"
+      aria-labelledby="about-heading"
+    >
       <div className="mx-auto max-w-6xl">
-        <h2 className="text-sm font-medium uppercase tracking-widest text-neutral-400">
+        <SectionLabel>{portfolio.about.title}</SectionLabel>
+        <h2 id="about-heading" className="sr-only">
           About
         </h2>
-        <p className="mt-6 max-w-2xl text-base leading-relaxed text-neutral-600">
-          Designer and developer with an MS in Human-Computer Interaction from
-          Pratt Institute, focused on building digital products that feel
-          precise, visual, and human.
+        <p className="mt-5 max-w-2xl text-lg leading-relaxed text-[var(--foreground)] md:text-xl">
+          {portfolio.about.body}
         </p>
       </div>
     </section>

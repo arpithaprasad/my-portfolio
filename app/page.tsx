@@ -1,19 +1,23 @@
 import About from "./components/About";
-import Contact from "./components/Contact";
+import CurrentlyMapping from "./components/CurrentlyMapping";
+import FieldNotes from "./components/FieldNotes";
+import Footer from "./components/Footer";
 import Hero from "./components/Hero";
 import Navbar from "./components/Navbar";
 import Work from "./components/Work";
 
 export default function Home() {
   return (
-    <div className="drafting-lines min-h-screen text-[#1A1A1A]">
+    <div className="drafting-lines min-h-screen text-[var(--foreground)]">
       <Navbar />
       <main>
         <Hero />
+        <CurrentlyMapping />
         <Work />
+        <FieldNotes />
         <About />
-        <Contact />
       </main>
+      <Footer />
     </div>
   );
 }

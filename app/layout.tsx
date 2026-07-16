@@ -8,8 +8,9 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "Arpitha Prasad — Designer who codes",
-  description: "Portfolio of Arpitha Prasad, a designer who codes.",
+  title: "Arpitha Prasad — Product Designer",
+  description:
+    "Product designer mapping complex systems into approachable digital experiences. Architecture background, HCI training, NYC.",
 };
 
 export default function RootLayout({
