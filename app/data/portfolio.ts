@@ -22,13 +22,6 @@ export type Artifact = {
   mobile?: boolean;
 };
 
-export type FocusArea = {
-  id: string;
-  coordinate: string;
-  title: string;
-  description: string;
-};
-
 export type Project = {
   id: string;
   name: string;
@@ -39,13 +32,6 @@ export type Project = {
   tags: string[];
   href: string;
   accentVar: "--accent-firstspark" | "--accent-path" | "--accent-pottery";
-};
-
-export type FieldNote = {
-  id: string;
-  title: string;
-  description: string;
-  year: string;
 };
 
 export const portfolio = {
@@ -60,9 +46,6 @@ export const portfolio = {
     support:
       "With a background in architecture, I bring spatial thinking, visual storytelling, and systems thinking into product design.",
     cta: { label: "Explore selected journeys", href: "#work" },
-    markers: ["[01]", "FIELD NOTE", "CURRENT COORDINATES", "SYSTEM / STORY / INTERACTION"],
-    annotation:
-      "Architecture taught me to design spaces.\nUX taught me to design experiences.",
     meta: [
       "MS HCI @ Pratt Institute",
       "Currently open to opportunities",
@@ -162,26 +145,6 @@ export const portfolio = {
       mobile: false,
     },
   ] satisfies Artifact[],
-  currentlyMapping: [
-    {
-      id: "f1",
-      coordinate: "01",
-      title: "Financial trust",
-      description: "making unfamiliar systems feel understandable",
-    },
-    {
-      id: "f2",
-      coordinate: "02",
-      title: "Career transitions",
-      description: "reducing friction in high-stakes decisions",
-    },
-    {
-      id: "f3",
-      coordinate: "03",
-      title: "Cultural storytelling",
-      description: "creating visibility for communities and craft",
-    },
-  ] satisfies FocusArea[],
   projects: [
     {
       id: "firstspark",
@@ -220,26 +183,6 @@ export const portfolio = {
       accentVar: "--accent-pottery",
     },
   ] satisfies Project[],
-  fieldNotes: [
-    {
-      id: "n1",
-      title: "Gesture-controlled vocal performance",
-      description: "Mapping body movement to voice and visual feedback.",
-      year: "2024",
-    },
-    {
-      id: "n2",
-      title: "Speculative anti-surveillance wearables",
-      description: "Prototypes that question visibility, privacy, and control.",
-      year: "2023",
-    },
-    {
-      id: "n3",
-      title: "Interaction & visual experiments",
-      description: "Small studies in motion, hierarchy, and spatial UI.",
-      year: "Ongoing",
-    },
-  ] satisfies FieldNote[],
   about: {
     title: "About",
     body: "I see complex systems, map the relationships between them, and turn them into approachable digital experiences — informed by architecture, HCI, and a love of clear visual storytelling.",

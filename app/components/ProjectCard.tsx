@@ -16,16 +16,10 @@ export default function ProjectCard({ project }: ProjectCardProps) {
       />
 
       <div
-        className="relative flex h-40 items-end border-b border-[var(--line)] bg-[var(--surface-soft)] px-6 pb-5"
+        className="relative h-40 border-b border-[var(--line)] bg-[var(--surface-soft)]"
         aria-hidden="true"
       >
         <div className="absolute inset-6 border border-dashed border-[var(--line-strong)] opacity-70" />
-        <div className="relative z-10 flex items-center gap-2">
-          <span className="h-2 w-2 rounded-full bg-[var(--project-accent)] opacity-70" />
-          <span className="text-[10px] uppercase tracking-[0.18em] text-[var(--muted-soft)]">
-            Expedition {project.year}
-          </span>
-        </div>
       </div>
 
       <div className="flex flex-1 flex-col px-6 py-6">
@@ -64,7 +58,7 @@ export default function ProjectCard({ project }: ProjectCardProps) {
           href={project.href}
           className="link-underline focus-ring mt-auto pt-8 text-sm text-[var(--foreground)]"
         >
-          View journey
+          View case study
           <span className="link-arrow" aria-hidden="true">
             →
           </span>
