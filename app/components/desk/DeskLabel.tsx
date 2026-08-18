@@ -22,7 +22,7 @@ export default function DeskLabel({
 }: DeskLabelProps) {
   return (
     <div
-      className={`pointer-events-none flex items-center gap-1 text-[13px] leading-tight text-[#F0EDE8] opacity-80 transition-opacity duration-200 group-hover:opacity-100 ${className}`}
+      className={`pointer-events-none flex items-center gap-1 text-[13px] leading-tight text-[var(--accent)] opacity-70 transition-opacity duration-200 group-hover:opacity-100 ${className}`}
       style={{ fontFamily: "var(--font-hand), Caveat, cursive" }}
     >
       <svg
@@ -33,15 +33,13 @@ export default function DeskLabel({
       >
         <path
           d={arrows[arrow]}
-          stroke="#F0EDE8"
+          stroke="currentColor"
           strokeWidth="1.4"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
       </svg>
-      <span className="max-w-[7.5rem] drop-shadow-[0_1px_2px_rgba(0,0,0,0.45)]">
-        {text}
-      </span>
+      <span className="max-w-[7.5rem]">{text}</span>
     </div>
   );
 }

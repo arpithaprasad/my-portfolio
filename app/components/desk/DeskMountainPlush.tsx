@@ -15,31 +15,31 @@ export default function DeskMountainPlush() {
 
   return (
     <motion.div
-      className="group absolute left-[70%] top-[58%] z-20 w-[26%] max-w-[115px] cursor-default"
+      className="group absolute left-[66%] top-[56%] z-20 w-[30%] max-w-[128px] cursor-default"
       initial="rest"
       animate="rest"
       whileHover={reduceMotion ? undefined : "hover"}
       variants={{
-        rest: { y: 0, rotate: -5 },
+        rest: { y: 0, rotate: -4 },
         hover: { y: -6, rotate: -2 },
       }}
       transition={spring}
       aria-hidden="true"
     >
       <motion.div
-        className="absolute -top-11 left-1/2 z-30 w-36 -translate-x-1/2 rounded-xl bg-white px-2.5 py-2 text-center shadow-[0_4px_16px_rgba(0,0,0,0.12)]"
+        className="absolute -top-12 left-1/2 z-30 w-36 -translate-x-1/2 rounded-xl bg-white px-2.5 py-2 text-center shadow-[0_4px_16px_rgba(0,0,0,0.08)]"
         variants={tipVariants}
         transition={spring}
       >
-        <p className="text-[10px] leading-snug text-[#1a1a1a]">
-          I collect mountains 🏔️
+        <p className="text-[10px] leading-snug text-[var(--foreground)]">
+          I collect mountains and trek them 🏔️
         </p>
         <span className="absolute -bottom-1.5 left-1/2 h-3 w-3 -translate-x-1/2 rotate-45 bg-white" />
       </motion.div>
 
       <svg
         viewBox="0 0 120 95"
-        className="h-auto w-full drop-shadow-[0_6px_16px_rgba(0,0,0,0.22)]"
+        className="h-auto w-full drop-shadow-[0_4px_16px_rgba(0,0,0,0.08)]"
         fill="none"
       >
         <path
@@ -59,7 +59,6 @@ export default function DeskMountainPlush() {
           strokeLinejoin="round"
           strokeLinecap="round"
         />
-        {/* Stitch path */}
         <path
           d="M28 74 Q50 62 60 46 Q74 34 92 40"
           stroke="#6e8f6e"
@@ -68,15 +67,27 @@ export default function DeskMountainPlush() {
           strokeLinecap="round"
           opacity="0.75"
         />
-        {/* X eyes */}
-        <path d="M44 48 L50 54 M50 48 L44 54" stroke="#3a4f3a" strokeWidth="1.8" strokeLinecap="round" />
-        <path d="M66 46 L72 52 M72 46 L66 52" stroke="#3a4f3a" strokeWidth="1.8" strokeLinecap="round" />
-        {/* Blush */}
+        <path
+          d="M44 48 L50 54 M50 48 L44 54"
+          stroke="#3a4f3a"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+        />
+        <path
+          d="M66 46 L72 52 M72 46 L66 52"
+          stroke="#3a4f3a"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+        />
         <ellipse cx="38" cy="58" rx="4" ry="2.2" fill="#c9a8a8" opacity="0.55" />
         <ellipse cx="80" cy="56" rx="4" ry="2.2" fill="#c9a8a8" opacity="0.55" />
-        {/* Smile */}
-        <path d="M52 60 Q60 66 70 58" stroke="#3a4f3a" strokeWidth="1.5" strokeLinecap="round" fill="none" />
-        {/* Snow tip */}
+        <path
+          d="M52 60 Q60 66 70 58"
+          stroke="#3a4f3a"
+          strokeWidth="1.5"
+          strokeLinecap="round"
+          fill="none"
+        />
         <path
           d="M56 20 C58 15, 66 14, 70 20 C66 24, 60 24, 56 20 Z"
           fill="#eef4ee"

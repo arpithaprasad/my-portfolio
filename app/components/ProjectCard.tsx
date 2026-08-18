@@ -1,53 +1,49 @@
-import type { Project } from "../data/portfolio";
+"use client";
+
+import { motion, useReducedMotion } from "framer-motion";
 
 type ProjectCardProps = {
-  project: Project;
+  name: string;
+  description: string;
+  tags: readonly string[];
+  href: string;
 };
 
-export default function ProjectCard({ project }: ProjectCardProps) {
-  return (
-    <article
-      className="project-card group relative flex h-full flex-col overflow-hidden border border-[var(--line-strong)] bg-[var(--surface)] transition-colors duration-200"
-      style={{ ["--project-accent" as string]: `var(${project.accentVar})` }}
-    >
-      <div
-        className="absolute left-0 top-0 h-full w-[2px] origin-top scale-y-0 bg-[var(--project-accent)] transition-transform duration-300 ease-out group-hover:scale-y-100 group-focus-within:scale-y-100"
-        aria-hidden="true"
-      />
+export default function ProjectCard({
+  name,
+  description,
+  tags,
+  href,
+}: ProjectCardProps) {
+  const reduceMotion = useReducedMotion();
 
-      <div
-        className="relative h-40 border-b border-[var(--line)] bg-[var(--surface-soft)]"
-        aria-hidden="true"
-      >
-        <div className="absolute inset-6 border border-dashed border-[var(--line-strong)] opacity-70" />
+  return (
+    <motion.article
+      className="group flex h-full flex-col overflow-hidden rounded-lg border border-[var(--border)] bg-[var(--surface)] transition-colors duration-200 hover:border-[var(--accent)]"
+      whileHover={
+        reduceMotion
+          ? undefined
+          : { y: -6, boxShadow: "0 12px 32px rgba(26,26,26,0.08)" }
+      }
+      transition={{ type: "spring", stiffness: 320, damping: 24 }}
+    >
+      <div className="flex h-60 items-center justify-center bg-[#E8E8E8]">
+        <p className="text-sm text-[var(--muted)]">Project preview coming soon</p>
       </div>
 
-      <div className="flex flex-1 flex-col px-6 py-6">
-        <h3 className="text-2xl font-semibold tracking-tight text-[var(--foreground)]">
-          {project.name}
+      <div className="flex flex-1 flex-col p-6">
+        <h3 className="text-[22px] font-semibold tracking-tight text-[var(--foreground)]">
+          {name}
         </h3>
-        <p className="mt-3 text-sm leading-relaxed text-[var(--muted)]">{project.description}</p>
+        <p className="mt-2 text-sm leading-relaxed text-[var(--muted)]">
+          {description}
+        </p>
 
-        <dl className="mt-5 grid grid-cols-3 gap-3 text-[11px]">
-          <div>
-            <dt className="uppercase tracking-[0.16em] text-[var(--muted-soft)]">Focus</dt>
-            <dd className="mt-1 text-sm text-[var(--muted)]">{project.focus}</dd>
-          </div>
-          <div>
-            <dt className="uppercase tracking-[0.16em] text-[var(--muted-soft)]">Role</dt>
-            <dd className="mt-1 text-sm text-[var(--muted)]">{project.role}</dd>
-          </div>
-          <div>
-            <dt className="uppercase tracking-[0.16em] text-[var(--muted-soft)]">Year</dt>
-            <dd className="mt-1 text-sm text-[var(--muted)]">{project.year}</dd>
-          </div>
-        </dl>
-
-        <ul className="mt-5 flex flex-wrap gap-2">
-          {project.tags.map((tag) => (
+        <ul className="mt-4 flex flex-wrap gap-2">
+          {tags.map((tag) => (
             <li
               key={tag}
-              className="border border-[var(--line)] px-2 py-0.5 text-[10px] uppercase tracking-[0.14em] text-[var(--muted-soft)]"
+              className="rounded-full border border-[var(--accent)] px-3 py-0.5 text-[11px] text-[var(--accent)]"
             >
               {tag}
             </li>
@@ -55,15 +51,12 @@ export default function ProjectCard({ project }: ProjectCardProps) {
         </ul>
 
         <a
-          href={project.href}
-          className="link-underline focus-ring mt-auto pt-8 text-sm text-[var(--foreground)]"
+          href={href}
+          className="focus-ring mt-auto inline-flex items-center pt-6 text-sm text-[var(--accent)] transition-transform duration-200 group-hover:translate-x-1"
         >
-          View case study
-          <span className="link-arrow" aria-hidden="true">
-            →
-          </span>
+          View case study →
         </a>
       </div>
-    </article>
+    </motion.article>
   );
 }
