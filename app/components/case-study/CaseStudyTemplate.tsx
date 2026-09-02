@@ -146,7 +146,7 @@ export default function CaseStudyTemplate({ study }: CaseStudyTemplateProps) {
         </nav>
       </div>
 
-      <div className="mx-auto flex min-h-screen max-w-[1440px] px-8 lg:px-12 xl:px-16">
+      <div className="mx-auto flex min-h-screen max-w-[1600px] px-8 lg:px-12 xl:px-16">
         {/* Left sidebar — desktop */}
         <aside className="sticky top-0 hidden h-screen w-[320px] shrink-0 flex-col border-r border-[var(--border)] px-10 py-10 xl:w-[360px] lg:flex">
           <Link
@@ -195,7 +195,7 @@ export default function CaseStudyTemplate({ study }: CaseStudyTemplateProps) {
 
         {/* Right content */}
         <main className="min-w-0 flex-1 py-10 lg:py-12">
-          <div className="max-w-[760px] px-2 sm:px-4 lg:px-6">
+          <div className="w-full max-w-[900px] px-2 sm:px-4 lg:px-4">
             {/* OVERVIEW */}
             <section
               id="overview"
