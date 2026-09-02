@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 
 type ProjectCardProps = {
@@ -50,12 +51,12 @@ export default function ProjectCard({
           ))}
         </ul>
 
-        <a
+        <Link
           href={href}
           className="focus-ring mt-auto inline-flex items-center pt-6 text-sm text-[var(--accent)] transition-transform duration-200 group-hover:translate-x-1"
         >
           View case study →
-        </a>
+        </Link>
       </div>
     </motion.article>
   );
