@@ -17,7 +17,7 @@ export const portfolio = {
       description:
         "Designing confidence for first-gen immigrants navigating the U.S. financial system",
       tags: ["UX Design", "Financial Services"],
-      href: "#work",
+      href: "/work/firstspark",
     },
     {
       id: "path",
@@ -25,7 +25,7 @@ export const portfolio = {
       description:
         "Redesigning the career transition experience to feel guided and human",
       tags: ["UX Design", "Career Tech"],
-      href: "#work",
+      href: "/work/path",
     },
     {
       id: "pottery-town",
@@ -33,7 +33,7 @@ export const portfolio = {
       description:
         "Making craft communities visible through cultural storytelling",
       tags: ["UX/Visual Design", "Culture"],
-      href: "#work",
+      href: "/work/pottery-town",
     },
   ],
   about: {
