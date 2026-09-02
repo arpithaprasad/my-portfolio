@@ -124,7 +124,7 @@ export default function CaseStudyTemplate({ study }: CaseStudyTemplateProps) {
     <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
       {/* Mobile header + horizontal nav */}
       <div className="border-b border-[var(--border)] lg:hidden">
-        <div className="px-6 py-5">
+        <div className="px-8 py-5 lg:px-12 xl:px-16">
           <Link
             href="/#work"
             className="focus-ring text-sm text-[var(--accent)]"
@@ -139,16 +139,16 @@ export default function CaseStudyTemplate({ study }: CaseStudyTemplateProps) {
           </p>
         </div>
         <nav
-          className="flex gap-2 overflow-x-auto px-6 pb-4"
+          className="flex gap-2 overflow-x-auto px-8 pb-4 lg:px-12 xl:px-16"
           aria-label="Case study sections"
         >
           {navButtons("mobile")}
         </nav>
       </div>
 
-      <div className="flex min-h-screen">
+      <div className="mx-auto flex min-h-screen max-w-[1440px] px-8 lg:px-12 xl:px-16">
         {/* Left sidebar — desktop */}
-        <aside className="sticky top-0 hidden h-screen w-[280px] shrink-0 flex-col border-r border-[var(--border)] px-8 py-10 lg:flex">
+        <aside className="sticky top-0 hidden h-screen w-[320px] shrink-0 flex-col border-r border-[var(--border)] px-10 py-10 xl:w-[360px] lg:flex">
           <Link
             href="/#work"
             className="focus-ring text-sm text-[var(--accent)]"
@@ -194,8 +194,8 @@ export default function CaseStudyTemplate({ study }: CaseStudyTemplateProps) {
         </aside>
 
         {/* Right content */}
-        <main className="min-w-0 flex-1">
-          <div className="mx-auto max-w-[760px] px-6 py-10 lg:px-12 lg:py-[60px]">
+        <main className="min-w-0 flex-1 py-10 lg:py-12">
+          <div className="max-w-[760px] px-2 sm:px-4 lg:px-6">
             {/* OVERVIEW */}
             <section
               id="overview"
