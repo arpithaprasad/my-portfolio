@@ -183,7 +183,7 @@ const graphics: Record<(typeof likes)[number]["id"], ReactNode> = {
 
 export default function DeskScene() {
   return (
-    <div className="mx-auto w-full max-w-lg">
+    <div className="w-full">
       <p className="type-label mb-3 text-[var(--accent)]">Things I like</p>
       <div className="grid grid-cols-2 gap-2 pb-12 sm:grid-cols-3">
         {likes.map((item) => (
