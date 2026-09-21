@@ -3,6 +3,7 @@
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { portfolio } from "../data/portfolio";
+import CursorBloom from "./CursorBloom";
 
 const words = portfolio.hero.rotatingWords;
 
@@ -32,8 +33,9 @@ export default function Hero() {
         };
 
   return (
-    <section className="flex min-h-[calc(100vh-5rem)] items-center justify-center px-6 py-20 md:px-12 md:py-28">
-      <div className="mx-auto w-full max-w-3xl text-center">
+    <section className="relative isolate z-0 flex min-h-[calc(100vh-5rem)] items-center justify-center overflow-hidden px-6 py-20 md:px-12 md:py-28">
+      <CursorBloom />
+      <div className="relative z-10 mx-auto w-full max-w-3xl text-center">
         <motion.p
           className="text-xs font-medium uppercase tracking-[0.22em] text-[var(--accent)]"
           {...fadeUp(0)}
