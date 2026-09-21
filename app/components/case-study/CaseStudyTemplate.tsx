@@ -92,7 +92,7 @@ function MetadataPanel({ study }: { study: CaseStudyData }) {
         {study.contributions.map((tag) => (
           <span
             key={tag}
-            className="rounded-full border border-[#3D7A74]/25 bg-[#3D7A74]/[0.07] px-3 py-1 text-[11px] font-medium text-[#3D7A74]"
+            className="rounded-full border border-[#3D7A74]/25 bg-[#3D7A74]/[0.07] px-3 py-1 text-[14px] font-medium text-[#3D7A74]"
           >
             {tag}
           </span>
