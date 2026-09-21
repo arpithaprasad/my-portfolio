@@ -113,7 +113,7 @@ export default function Hero() {
         </div>
 
         <motion.div
-          className="relative min-w-0 overflow-visible lg:col-span-6"
+          className="relative min-w-0 lg:col-span-6"
           {...fadeUp(0.3)}
         >
           <DeskScene />
