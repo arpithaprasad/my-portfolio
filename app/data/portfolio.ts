@@ -11,6 +11,7 @@ export type Project = {
   tooltip: string;
   tags: readonly string[];
   year: string;
+  href: "/work/firstspark" | "/work/path" | "/work/pottery-town";
   aspect: "tall" | "mid" | "wide";
   slides: readonly ProjectSlide[];
 };
@@ -36,6 +37,7 @@ export const portfolio = {
       tooltip: "Confidence for first-gen finance · 2025",
       tags: ["UX Design", "Financial Services"],
       year: "2025",
+      href: "/work/firstspark",
       aspect: "tall",
       slides: [
         {
@@ -72,6 +74,7 @@ export const portfolio = {
       tooltip: "A guided career transition · 2025",
       tags: ["UX Design", "Career Tech"],
       year: "2025",
+      href: "/work/path",
       aspect: "wide",
       slides: [
         {
@@ -108,6 +111,7 @@ export const portfolio = {
       tooltip: "A town square for makers · 2025",
       tags: ["UX/Visual Design", "Culture"],
       year: "2025",
+      href: "/work/pottery-town",
       aspect: "mid",
       slides: [
         {
