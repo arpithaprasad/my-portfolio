@@ -45,7 +45,7 @@ function SectionNavButton({
     <button
       type="button"
       onClick={onClick}
-      className={`focus-ring relative w-full py-2.5 pl-4 text-left text-[13px] transition-colors ${
+      className={`focus-ring relative w-full py-1.5 pl-4 text-left text-[13px] transition-colors ${
         active
           ? "font-semibold text-[#1A1A1A]"
           : "font-medium text-[#1A1A1A]/40 hover:text-[#1A1A1A]/65"
@@ -73,14 +73,14 @@ function MetadataRow({
 }) {
   return (
     <div
-      className={`flex flex-col gap-2 py-4 ${
+      className={`grid grid-cols-[auto_1fr] items-center gap-x-4 gap-y-1 py-2.5 ${
         isLast ? "" : "border-b border-[#1A1A1A]/[0.06]"
       }`}
     >
-      <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#1A1A1A]/40">
+      <span className="text-[10px] font-semibold uppercase tracking-[0.14em] text-[#1A1A1A]/40">
         {label}
       </span>
-      <div className="flex flex-wrap gap-2">{children}</div>
+      <div className="flex flex-wrap justify-end gap-1.5">{children}</div>
     </div>
   );
 }
@@ -92,19 +92,19 @@ function MetadataPanel({ study }: { study: CaseStudyData }) {
         {study.contributions.map((tag) => (
           <span
             key={tag}
-            className="rounded-full border border-[#3D7A74]/25 bg-[#3D7A74]/[0.07] px-3 py-1 text-[11px] font-medium text-[#3D7A74]"
+            className="rounded-full border border-[#3D7A74]/25 bg-[#3D7A74]/[0.07] px-2.5 py-0.5 text-[10px] font-medium text-[#3D7A74]"
           >
             {tag}
           </span>
         ))}
       </MetadataRow>
       <MetadataRow label="Timeline">
-        <span className="text-right text-[13px] font-medium text-[#1A1A1A]/70">
+        <span className="text-right text-[12px] font-medium text-[#1A1A1A]/70">
           {study.timeline}
         </span>
       </MetadataRow>
       <MetadataRow label="Role" isLast>
-        <span className="text-right text-[13px] font-medium text-[#1A1A1A]/70">
+        <span className="text-right text-[12px] font-medium text-[#1A1A1A]/70">
           {study.role}
         </span>
       </MetadataRow>
@@ -164,10 +164,10 @@ export default function CaseStudyTemplate({ study }: CaseStudyTemplateProps) {
       <div className="mx-auto w-full max-w-[1680px] px-[clamp(1.5rem,6vw,5rem)]">
         <div className="lg:grid lg:grid-cols-[minmax(280px,32%)_minmax(0,1fr)] lg:gap-x-[clamp(2.5rem,4vw,4.5rem)]">
           {/* Desktop sidebar */}
-          <aside className="hidden lg:flex lg:sticky lg:top-0 lg:h-screen lg:flex-col lg:overflow-y-auto lg:py-10">
+          <aside className="hidden lg:flex lg:sticky lg:top-0 lg:h-dvh lg:flex-col lg:overflow-hidden lg:py-8">
             <Link
               href="/#work"
-              className="focus-ring mb-10 inline-flex items-center gap-2 text-[13px] font-medium text-[#1A1A1A]/45 transition-colors hover:text-[#1A1A1A]"
+              className="focus-ring mb-6 inline-flex items-center gap-2 text-[13px] font-medium text-[#1A1A1A]/45 transition-colors hover:text-[#1A1A1A]"
             >
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden>
                 <path
@@ -181,18 +181,18 @@ export default function CaseStudyTemplate({ study }: CaseStudyTemplateProps) {
               Back
             </Link>
 
-            <h1 className="font-serif text-[clamp(1.75rem,2.8vw,2.5rem)] font-semibold leading-[1.1] tracking-[-0.02em] text-[#1A1A1A]">
+            <h1 className="font-serif text-[clamp(1.6rem,2.4vw,2.15rem)] font-semibold leading-[1.1] tracking-[-0.02em] text-[#1A1A1A]">
               {study.name}
             </h1>
-            <p className="mt-4 text-[14px] leading-[1.65] text-[#1A1A1A]/55">
+            <p className="mt-3 text-[13px] leading-[1.55] text-[#1A1A1A]/55">
               {study.description}
             </p>
 
-            <div className="mt-8">
+            <div className="mt-5">
               <MetadataPanel study={study} />
             </div>
 
-            <nav className="mt-auto space-y-0.5 pt-10" aria-label="Case study sections">
+            <nav className="mt-auto shrink-0 space-y-0 pt-6" aria-label="Case study sections">
               {navButtons("sidebar")}
             </nav>
           </aside>
