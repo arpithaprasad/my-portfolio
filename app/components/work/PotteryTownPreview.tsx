@@ -13,7 +13,7 @@ export default function PotteryTownPreview({ variant }: PreviewProps) {
     <div className="relative h-full min-h-[240px] w-full overflow-hidden bg-[#f3ebe1]">
       <div className="preview-grain" />
       {variant === "maker" ? (
-        <div className="absolute inset-x-[10%] top-[14%] rounded-2xl bg-white p-4 shadow-[0_14px_32px_rgba(90,50,20,0.12)]">
+        <div className="absolute inset-x-[10%] top-1/2 -translate-y-1/2 rounded-2xl bg-white p-4 shadow-[0_14px_32px_rgba(90,50,20,0.12)]">
           <div className="flex items-center gap-3">
             <div className="pottery-spin h-12 w-12 rounded-full bg-[#c4744a]" />
             <div>
@@ -31,7 +31,7 @@ export default function PotteryTownPreview({ variant }: PreviewProps) {
           </p>
         </div>
       ) : variant === "story" ? (
-        <div className="absolute inset-x-[8%] top-[10%] overflow-hidden rounded-2xl bg-[#3a2a1e] p-4 text-[#f3ebe1]">
+        <div className="absolute inset-x-[8%] top-1/2 -translate-y-1/2 overflow-hidden rounded-2xl bg-[#3a2a1e] p-4 text-[#f3ebe1]">
           <p className="text-[9px] uppercase tracking-[0.16em] text-[#d9a05b]">
             Process
           </p>
@@ -70,7 +70,7 @@ export default function PotteryTownPreview({ variant }: PreviewProps) {
           </div>
         </div>
       ) : (
-        <div className="absolute inset-x-[8%] top-[12%] rounded-2xl bg-white p-4 shadow-[0_14px_32px_rgba(90,50,20,0.1)]">
+        <div className="absolute inset-x-[8%] top-1/2 -translate-y-1/2 rounded-2xl bg-white p-4 shadow-[0_14px_32px_rgba(90,50,20,0.1)]">
           <p className="text-[9px] uppercase tracking-[0.16em] text-[#b0894a]">
             Pottery Town
           </p>

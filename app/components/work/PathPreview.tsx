@@ -4,7 +4,7 @@ type PreviewProps = {
 
 function Window({ children }: { children: React.ReactNode }) {
   return (
-    <div className="absolute inset-x-[7%] top-[12%] overflow-hidden rounded-2xl bg-white shadow-[0_16px_40px_rgba(40,55,80,0.12)]">
+    <div className="absolute inset-x-[6%] top-1/2 -translate-y-1/2 overflow-hidden rounded-2xl bg-white shadow-[0_16px_40px_rgba(40,55,80,0.12)]">
       <div className="flex items-center gap-1.5 border-b border-[#e8eaf0] bg-[#f6f7fb] px-3 py-2">
         <span className="h-1.5 w-1.5 rounded-full bg-[#d0d5e2]" />
         <span className="h-1.5 w-1.5 rounded-full bg-[#d0d5e2]" />

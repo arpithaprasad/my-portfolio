@@ -5,7 +5,7 @@ export default function Work() {
   return (
     <section
       id="work"
-      className="scroll-mt-24 px-6 py-20 md:px-12 md:py-28"
+      className="relative z-10 scroll-mt-24 bg-[var(--background)] px-6 py-16 md:px-12 md:py-24"
       aria-labelledby="work-heading"
     >
       <div className="mx-auto max-w-6xl">

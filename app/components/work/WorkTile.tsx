@@ -1,10 +1,10 @@
 import type { Project } from "../../data/portfolio";
 import ProjectPreview from "./ProjectPreview";
 
-const aspectClass = {
-  tall: "aspect-[4/5] min-h-[320px]",
-  mid: "aspect-[5/6] min-h-[280px]",
-  wide: "aspect-[16/11] min-h-[240px]",
+const heightClass = {
+  tall: "h-[420px]",
+  mid: "h-[340px]",
+  wide: "h-[248px]",
 };
 
 type WorkTileProps = {
@@ -35,7 +35,7 @@ export default function WorkTile({
         onPointerLeave={() => onTooltip(null)}
         aria-label={`Open ${project.name} case study`}
       >
-        <div className={`relative w-full overflow-hidden ${aspectClass[project.aspect]}`}>
+        <div className={`relative w-full overflow-hidden ${heightClass[project.aspect]}`}>
           <ProjectPreview project={project} variant={project.slides[0].variant} />
         </div>
       </button>

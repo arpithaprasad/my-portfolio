@@ -4,7 +4,7 @@ type PreviewProps = {
 
 function Phone({ children }: { children: React.ReactNode }) {
   return (
-    <div className="absolute left-1/2 top-[7%] w-[74%] max-w-[250px] -translate-x-1/2 rounded-[30px] bg-[#2a241c] p-[5px] shadow-[0_18px_40px_rgba(70,50,20,0.18)]">
+    <div className="absolute left-1/2 top-1/2 w-[78%] max-w-[280px] -translate-x-1/2 -translate-y-1/2 rounded-[30px] bg-[#2a241c] p-[5px] shadow-[0_18px_40px_rgba(70,50,20,0.18)]">
       <div className="relative overflow-hidden rounded-[25px] bg-[#fbf7f0]">
         <div className="flex items-center justify-between px-4 pt-2.5 text-[8px] tracking-wide text-[#8a7d6c]">
           <span>9:41</span>
