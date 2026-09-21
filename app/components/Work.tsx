@@ -1,5 +1,5 @@
 import { portfolio } from "../data/portfolio";
-import ProjectCard from "./ProjectCard";
+import WorkGallery from "./work/WorkGallery";
 
 export default function Work() {
   return (
@@ -9,21 +9,14 @@ export default function Work() {
       aria-labelledby="work-heading"
     >
       <div className="mx-auto max-w-6xl">
-        <div className="mb-12 flex items-center gap-4">
-          <h2
-            id="work-heading"
-            className="shrink-0 text-xs font-medium uppercase tracking-[0.22em] text-[var(--accent)]"
-          >
-            SELECTED WORK
+        <div className="mb-6 flex items-center gap-4">
+          <h2 id="work-heading" className="type-label shrink-0 text-[var(--accent)]">
+            Selected work
           </h2>
-          <div className="h-px w-full bg-[var(--accent)]" aria-hidden="true" />
+          <div className="h-px w-full bg-[var(--border)]" aria-hidden="true" />
         </div>
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          {portfolio.projects.map((project) => (
-            <ProjectCard key={project.id} {...project} />
-          ))}
-        </div>
+        <WorkGallery projects={portfolio.projects} />
       </div>
     </section>
   );
