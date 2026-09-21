@@ -39,6 +39,10 @@ export type CaseStudyData = {
     name: string;
     href: string;
   };
+  hero: {
+    title: string;
+    imageLabel: string;
+  };
   overview: {
     problem: string;
     myRole: string;
@@ -125,6 +129,11 @@ export const caseStudies = {
     timeline: "Jan 2024 – Apr 2024",
     role: "UX Designer",
     nextProject: { name: "Path", href: "/work/path" },
+    hero: {
+      title:
+        "Designing confidence for first-gen immigrants navigating the U.S. financial system",
+      imageLabel: "PLACEHOLDER: Cover / hero image",
+    },
     overview: placeholderOverview,
     problem: placeholderProblem,
     process: placeholderProcess,
@@ -140,6 +149,11 @@ export const caseStudies = {
     timeline: "Sep 2024 – Dec 2024",
     role: "UX Designer",
     nextProject: { name: "Pottery Town", href: "/work/pottery-town" },
+    hero: {
+      title:
+        "Redesigning the career transition experience to feel guided, structured, and human",
+      imageLabel: "PLACEHOLDER: Cover / hero image",
+    },
     overview: placeholderOverview,
     problem: placeholderProblem,
     process: placeholderProcess,
@@ -155,6 +169,11 @@ export const caseStudies = {
     timeline: "Jan 2025 – Ongoing",
     role: "UX / Visual Designer",
     nextProject: { name: "FirstSpark", href: "/work/firstspark" },
+    hero: {
+      title:
+        "Making craft communities visible through cultural storytelling and spatial digital experiences",
+      imageLabel: "PLACEHOLDER: Cover / hero image",
+    },
     overview: placeholderOverview,
     problem: placeholderProblem,
     process: placeholderProcess,

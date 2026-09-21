@@ -73,21 +73,21 @@ function MetadataRow({
 }) {
   return (
     <div
-      className={`flex items-center justify-between gap-6 py-4 ${
+      className={`flex flex-col gap-2 py-4 ${
         isLast ? "" : "border-b border-[#1A1A1A]/[0.06]"
       }`}
     >
-      <span className="shrink-0 text-[11px] font-semibold uppercase tracking-[0.14em] text-[#1A1A1A]/40">
+      <span className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#1A1A1A]/40">
         {label}
       </span>
-      <div className="flex flex-wrap justify-end gap-2">{children}</div>
+      <div className="flex flex-wrap gap-2">{children}</div>
     </div>
   );
 }
 
 function MetadataPanel({ study }: { study: CaseStudyData }) {
   return (
-    <div className="border-b border-[#1A1A1A]/10">
+    <div className="border-t border-[#1A1A1A]/10">
       <MetadataRow label="Contributions">
         {study.contributions.map((tag) => (
           <span
@@ -164,7 +164,7 @@ export default function CaseStudyTemplate({ study }: CaseStudyTemplateProps) {
       <div className="mx-auto w-full max-w-[1680px] px-[clamp(1.5rem,6vw,5rem)]">
         <div className="lg:grid lg:grid-cols-[minmax(280px,32%)_minmax(0,1fr)] lg:gap-x-[clamp(2.5rem,4vw,4.5rem)]">
           {/* Desktop sidebar */}
-          <aside className="hidden lg:flex lg:sticky lg:top-0 lg:h-screen lg:flex-col lg:py-10">
+          <aside className="hidden lg:flex lg:sticky lg:top-0 lg:h-screen lg:flex-col lg:overflow-y-auto lg:py-10">
             <Link
               href="/#work"
               className="focus-ring mb-10 inline-flex items-center gap-2 text-[13px] font-medium text-[#1A1A1A]/45 transition-colors hover:text-[#1A1A1A]"
@@ -203,6 +203,10 @@ export default function CaseStudyTemplate({ study }: CaseStudyTemplateProps) {
               ))}
             </div>
 
+            <div className="mt-8">
+              <MetadataPanel study={study} />
+            </div>
+
             <nav className="mt-auto space-y-0.5 pt-10" aria-label="Case study sections">
               {navButtons("sidebar")}
             </nav>
@@ -233,11 +237,23 @@ export default function CaseStudyTemplate({ study }: CaseStudyTemplateProps) {
               <p className="mt-3 text-[14px] leading-[1.65] text-[#1A1A1A]/55">
                 {study.description}
               </p>
+              <div className="mt-6">
+                <MetadataPanel study={study} />
+              </div>
             </div>
 
-            <div className="mt-6 lg:mt-10">
-              <MetadataPanel study={study} />
-            </div>
+            <header className="mt-8 lg:mt-10">
+              <h2 className="font-serif text-[clamp(1.75rem,3vw,2.5rem)] font-semibold leading-[1.15] tracking-[-0.02em] text-[#1A1A1A]">
+                {study.hero.title}
+              </h2>
+              <div className="mt-8">
+                <PlaceholderImage
+                  label={study.hero.imageLabel}
+                  heightClass="h-[280px] sm:h-[340px] lg:h-[420px]"
+                  backgroundClass="bg-[#F0F0F0]"
+                />
+              </div>
+            </header>
 
             <nav
               className="scrollbar-none -mx-[clamp(1.5rem,6vw,5rem)] mt-4 flex gap-2 overflow-x-auto px-[clamp(1.5rem,6vw,5rem)] pb-4 lg:hidden"
