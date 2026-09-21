@@ -162,9 +162,9 @@ export default function CaseStudyTemplate({ study }: CaseStudyTemplateProps) {
   return (
     <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
       <div className="mx-auto w-full max-w-[1680px] px-[clamp(1.5rem,6vw,5rem)]">
-        <div className="lg:grid lg:grid-cols-[minmax(280px,32%)_minmax(0,1fr)] lg:gap-x-[clamp(2.5rem,4vw,4.5rem)]">
+        <div className="lg:grid lg:grid-cols-4 lg:gap-x-10">
           {/* Desktop sidebar */}
-          <aside className="hidden lg:flex lg:sticky lg:top-0 lg:h-dvh lg:flex-col lg:overflow-hidden lg:py-10">
+          <aside className="hidden lg:col-span-1 lg:flex lg:sticky lg:top-0 lg:h-dvh lg:flex-col lg:overflow-hidden lg:py-10">
             <Link
               href="/#work"
               className="focus-ring mb-8 inline-flex items-center gap-2 text-[14px] font-medium text-[#1A1A1A]/45 transition-colors hover:text-[#1A1A1A]"
@@ -198,7 +198,7 @@ export default function CaseStudyTemplate({ study }: CaseStudyTemplateProps) {
           </aside>
 
           {/* Right column */}
-          <div className="min-w-0">
+          <div className="min-w-0 lg:col-span-3">
             {/* Mobile header */}
             <div className="pt-8 lg:hidden">
               <Link
