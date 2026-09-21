@@ -188,21 +188,6 @@ export default function CaseStudyTemplate({ study }: CaseStudyTemplateProps) {
               {study.description}
             </p>
 
-            <div className="mt-6 flex flex-wrap gap-2">
-              {study.contributions.map((tag, i) => (
-                <span
-                  key={tag}
-                  className={`rounded-full px-3.5 py-1.5 text-[11px] font-medium ${
-                    i === 0
-                      ? "bg-[#3D7A74] text-white"
-                      : "border border-[#3D7A74]/30 text-[#3D7A74]"
-                  }`}
-                >
-                  {tag}
-                </span>
-              ))}
-            </div>
-
             <div className="mt-8">
               <MetadataPanel study={study} />
             </div>
