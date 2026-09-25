@@ -4,7 +4,7 @@ import { portfolio } from "../data/portfolio";
 
 export default function Navbar() {
   return (
-    <header className="sticky top-0 z-50 bg-transparent px-6 py-6 md:px-12">
+    <header className="sticky top-0 z-50 bg-[var(--background)]/85 px-6 py-5 backdrop-blur-md md:px-12">
       <nav
         className="mx-auto flex max-w-6xl items-center justify-between"
         aria-label="Primary"
