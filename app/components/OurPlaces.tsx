@@ -77,12 +77,10 @@ export default function OurPlaces() {
                   style={{
                     transform:
                       place.x > 68
-                        ? place.y < 42
-                          ? "translate(-78%, 22%)"
-                          : "translate(-78%, -118%)"
-                        : place.y < 42
-                          ? "translate(-24%, 22%)"
-                          : "translate(-30%, -118%)",
+                        ? "translate(-82%, -118%)"
+                        : place.y < 36
+                          ? "translate(-30%, 22%)"
+                          : "translate(-40%, -118%)",
                   }}
                 >
                   <button
