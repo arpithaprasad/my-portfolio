@@ -14,9 +14,7 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) for the portfolio.
-
-The 6-month anniversary scrapbook is a separate page at [http://localhost:3000/six-months](http://localhost:3000/six-months). Placeholder copy lives in `app/data/anniversary.ts`.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
