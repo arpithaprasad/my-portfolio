@@ -1,4 +1,4 @@
-import { anniversary } from "../data/anniversary";
+import { anniversary } from "../../data/anniversary";
 import Doodle from "./Doodle";
 
 export default function Stats() {

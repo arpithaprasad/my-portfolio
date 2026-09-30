@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type MouseEvent } from "react";
-import { anniversary } from "../data/anniversary";
+import { anniversary } from "../../data/anniversary";
 
 const HEARTS = ["♡", "♥", "♡", "♥", "♡"];
 

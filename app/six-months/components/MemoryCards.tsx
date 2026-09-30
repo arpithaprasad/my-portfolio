@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { anniversary } from "../data/anniversary";
+import { anniversary } from "../../data/anniversary";
 
 export default function MemoryCards() {
   const { memories } = anniversary;

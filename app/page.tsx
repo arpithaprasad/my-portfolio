@@ -1,36 +1,21 @@
-import FinalQuestion from "./components/FinalQuestion";
+import About from "./components/About";
+import Contact from "./components/Contact";
+import Footer from "./components/Footer";
 import Hero from "./components/Hero";
-import MemoryCards from "./components/MemoryCards";
-import OurPlaces from "./components/OurPlaces";
-import PerformanceReview from "./components/PerformanceReview";
-import Reveal from "./components/Reveal";
-import Stats from "./components/Stats";
-import ThingsILearned from "./components/ThingsILearned";
-import Timeline from "./components/Timeline";
+import Navbar from "./components/Navbar";
+import Work from "./components/Work";
 
 export default function Home() {
   return (
-    <div className="scrap-page">
-      <Hero />
-      <Reveal>
-        <Stats />
-      </Reveal>
-      <Reveal>
-        <Timeline />
-      </Reveal>
-      <Reveal>
-        <ThingsILearned />
-      </Reveal>
-      <Reveal>
-        <OurPlaces />
-      </Reveal>
-      <Reveal>
-        <PerformanceReview />
-      </Reveal>
-      <Reveal>
-        <MemoryCards />
-      </Reveal>
-      <FinalQuestion />
+    <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
+      <Navbar />
+      <main>
+        <Hero />
+        <Work />
+        <About />
+        <Contact />
+      </main>
+      <Footer />
     </div>
   );
 }

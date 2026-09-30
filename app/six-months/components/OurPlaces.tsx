@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { anniversary } from "../data/anniversary";
+import { anniversary } from "../../data/anniversary";
 import Doodle from "./Doodle";
 import Polaroid from "./Polaroid";
 

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { anniversary } from "../data/anniversary";
+import { anniversary } from "../../data/anniversary";
 import Doodle from "./Doodle";
 import StickyNote from "./StickyNote";
 

@@ -1,4 +1,4 @@
-import { anniversary } from "../data/anniversary";
+import { anniversary } from "../../data/anniversary";
 
 export default function PerformanceReview() {
   const { review, boyfriendName } = anniversary;

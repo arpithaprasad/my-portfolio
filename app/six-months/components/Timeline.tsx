@@ -1,4 +1,4 @@
-import { anniversary } from "../data/anniversary";
+import { anniversary } from "../../data/anniversary";
 import Polaroid from "./Polaroid";
 
 export default function Timeline() {
