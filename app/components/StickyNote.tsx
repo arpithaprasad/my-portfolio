@@ -5,6 +5,7 @@ import {
   useState,
   type CSSProperties,
   type PointerEvent,
+  type RefObject,
 } from "react";
 
 type StickyNoteProps = {
@@ -15,6 +16,7 @@ type StickyNoteProps = {
   yPct: number;
   draggable: boolean;
   zIndex: number;
+  boardRef: RefObject<HTMLDivElement | null>;
   onDragStart: () => void;
 };
 
@@ -26,6 +28,7 @@ export default function StickyNote({
   yPct,
   draggable,
   zIndex,
+  boardRef,
   onDragStart,
 }: StickyNoteProps) {
   const noteRef = useRef<HTMLElement>(null);
@@ -39,9 +42,10 @@ export default function StickyNote({
   function pointerDown(event: PointerEvent<HTMLElement>) {
     if (!draggable) return;
     const note = noteRef.current;
-    const board = note?.offsetParent as HTMLElement | null;
+    const board = boardRef.current;
     if (!note || !board) return;
 
+    event.preventDefault();
     onDragStart();
     const boardRect = board.getBoundingClientRect();
     const noteRect = note.getBoundingClientRect();
@@ -59,12 +63,12 @@ export default function StickyNote({
   function pointerMove(event: PointerEvent<HTMLElement>) {
     if (!drag.current || !draggable) return;
     const note = noteRef.current;
-    const board = note?.offsetParent as HTMLElement | null;
+    const board = boardRef.current;
     if (!note || !board) return;
 
     const boardRect = board.getBoundingClientRect();
-    const maxX = board.clientWidth - note.offsetWidth;
-    const maxY = board.clientHeight - note.offsetHeight;
+    const maxX = Math.max(0, board.clientWidth - note.offsetWidth);
+    const maxY = Math.max(0, board.clientHeight - note.offsetHeight);
     const x = Math.max(
       0,
       Math.min(event.clientX - boardRect.left - drag.current.offsetX, maxX),
@@ -87,17 +91,14 @@ export default function StickyNote({
   const style: CSSProperties = {
     transform: `rotate(${rotation}deg)`,
     zIndex,
-    ...(draggable && pos
-      ? { left: pos.x, top: pos.y }
-      : draggable
-        ? { left: `${xPct}%`, top: `${yPct}%` }
-        : {}),
+    left: pos ? pos.x : `${xPct}%`,
+    top: pos ? pos.y : `${yPct}%`,
   };
 
   return (
     <article
       ref={noteRef}
-      className={`sticky-note sticky-${color} ${draggable ? "sticky-desktop" : ""} ${dragging ? "is-dragging" : ""}`}
+      className={`sticky-note sticky-${color} ${dragging ? "is-dragging" : ""}`}
       style={style}
       onPointerDown={pointerDown}
       onPointerMove={pointerMove}

@@ -38,15 +38,15 @@ export default function Hero() {
         </div>
 
         <p className="hero-scribble">{hero.scribble}</p>
+      </div>
 
-        <div className="hero-polaroid">
-          <Polaroid
-            caption={hero.polaroidCaption}
-            rotation={9}
-            size="sm"
-            tint="#d7e0d2"
-          />
-        </div>
+      <div className="hero-polaroid">
+        <Polaroid
+          caption={hero.polaroidCaption}
+          rotation={9}
+          size="sm"
+          tint="#d7e0d2"
+        />
       </div>
     </section>
   );

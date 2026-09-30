@@ -1,17 +1,18 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { anniversary } from "../data/anniversary";
 import Doodle from "./Doodle";
 import StickyNote from "./StickyNote";
 
 export default function ThingsILearned() {
   const { learned } = anniversary;
+  const boardRef = useRef<HTMLDivElement>(null);
   const [canDrag, setCanDrag] = useState(false);
   const [topNote, setTopNote] = useState<string | null>(null);
 
   useEffect(() => {
-    const query = window.matchMedia("(pointer: fine) and (min-width: 768px)");
+    const query = window.matchMedia("(min-width: 768px)");
     const sync = () => setCanDrag(query.matches);
     sync();
     query.addEventListener("change", sync);
@@ -26,7 +27,7 @@ export default function ThingsILearned() {
         </h2>
         <p className="subtext">{learned.subtext}</p>
 
-        <div className="pinboard">
+        <div className="pinboard" ref={boardRef}>
           <span
             className="tape"
             style={{ top: "1.2rem", left: "8%", width: "4.2rem", transform: "rotate(-12deg)" }}
@@ -65,6 +66,7 @@ export default function ThingsILearned() {
               xPct={note.xPct}
               yPct={note.yPct}
               draggable={canDrag}
+              boardRef={boardRef}
               zIndex={topNote === note.id ? 8 : index + 1}
               onDragStart={() => setTopNote(note.id)}
             />

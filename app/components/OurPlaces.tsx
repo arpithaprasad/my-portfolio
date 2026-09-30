@@ -74,11 +74,16 @@ export default function OurPlaces() {
               {openId === place.id ? (
                 <div
                   className="place-popup"
-                  style={
-                    place.y < 40
-                      ? { transform: "translate(-30%, 18%)" }
-                      : undefined
-                  }
+                  style={{
+                    transform:
+                      place.x > 68
+                        ? place.y < 42
+                          ? "translate(-78%, 22%)"
+                          : "translate(-78%, -118%)"
+                        : place.y < 42
+                          ? "translate(-24%, 22%)"
+                          : "translate(-30%, -118%)",
+                  }}
                 >
                   <button
                     type="button"

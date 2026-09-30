@@ -19,11 +19,18 @@ export default function Stats() {
               className={`stat stat-${stat.size} ${stat.circled ? "stat-circled" : ""}`}
             >
               {stat.circled ? (
-                <span className="marker-circle">
-                  <Doodle type="circle" className="h-full w-full" />
+                <span className="marker-circle" aria-hidden="true">
+                  <svg viewBox="0 0 160 120" fill="none">
+                    <path
+                      d="M18 62c3-28 36-46 72-44 34 2 54 24 50 48-4 26-36 40-72 38C32 102 14 88 18 62Z"
+                      stroke="currentColor"
+                      strokeWidth="3"
+                      strokeLinecap="round"
+                    />
+                  </svg>
                 </span>
               ) : null}
-              {"annotation" in stat && stat.annotation ? (
+              {stat.annotation ? (
                 <>
                   <p className="stat-note">{stat.annotation}</p>
                   <span

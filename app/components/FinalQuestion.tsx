@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type MouseEvent } from "react";
 import { anniversary } from "../data/anniversary";
 
 const HEARTS = ["♡", "♥", "♡", "♥", "♡"];
@@ -42,29 +42,48 @@ export default function FinalQuestion() {
     return () => observer.disconnect();
   }, [finale.lines.length]);
 
-  function moveNo() {
+  function moveNo(from?: { x: number; y: number }) {
     const section = sectionRef.current;
     const button = noRef.current;
     if (!section || !button) return;
 
     const width = button.offsetWidth;
     const height = button.offsetHeight;
-    const pad = 18;
+    const pad = 20;
     const maxX = Math.max(pad, section.clientWidth - width - pad);
     const maxY = Math.max(pad, section.clientHeight - height - pad);
-    let left = pad + Math.random() * (maxX - pad);
-    let top = pad + Math.random() * (maxY - pad);
+    const sectionRect = section.getBoundingClientRect();
 
-    if (noPos) {
-      let tries = 0;
-      while (tries < 8 && Math.hypot(left - noPos.left, top - noPos.top) < 90) {
-        left = pad + Math.random() * (maxX - pad);
-        top = pad + Math.random() * (maxY - pad);
-        tries += 1;
-      }
+    let left = pad;
+    let top = pad;
+    for (let attempt = 0; attempt < 14; attempt += 1) {
+      left = pad + Math.random() * Math.max(1, maxX - pad);
+      top = pad + Math.random() * Math.max(1, maxY - pad);
+      const absX = sectionRect.left + left + width / 2;
+      const absY = sectionRect.top + top + height / 2;
+      const awayFromCursor =
+        !from || Math.hypot(absX - from.x, absY - from.y) > 90;
+      const awayFromLast =
+        !noPos || Math.hypot(left - noPos.left, top - noPos.top) > 70;
+      if (awayFromCursor && awayFromLast) break;
     }
 
     setNoPos({ left, top });
+  }
+
+  function maybeFlee(event: MouseEvent<HTMLElement>) {
+    if (answered) return;
+    const button = noRef.current;
+    if (!button) return;
+    const rect = button.getBoundingClientRect();
+    const near =
+      event.clientX >= rect.left - 42 &&
+      event.clientX <= rect.right + 42 &&
+      event.clientY >= rect.top - 42 &&
+      event.clientY <= rect.bottom + 42;
+    if (near) {
+      moveNo({ x: event.clientX, y: event.clientY });
+    }
   }
 
   function sayYes() {
@@ -86,6 +105,7 @@ export default function FinalQuestion() {
       id="finale"
       className="finale"
       aria-labelledby="finale-heading"
+      onMouseMove={maybeFlee}
     >
       <div className="finale-copy">
         <h2 id="finale-heading" className="sr-only">
@@ -120,21 +140,23 @@ export default function FinalQuestion() {
                       position: "absolute",
                       left: noPos.left,
                       top: noPos.top,
+                      zIndex: 3,
                     }
                   : undefined
               }
-              onMouseEnter={() => {
-                if (window.matchMedia("(pointer: fine)").matches) {
-                  moveNo();
-                }
-              }}
+              onMouseEnter={(event) =>
+                moveNo({ x: event.clientX, y: event.clientY })
+              }
               onClick={(event) => {
                 event.preventDefault();
-                moveNo();
+                moveNo({ x: event.clientX, y: event.clientY });
               }}
               onTouchStart={(event) => {
                 event.preventDefault();
-                moveNo();
+                const touch = event.touches[0];
+                moveNo(
+                  touch ? { x: touch.clientX, y: touch.clientY } : undefined,
+                );
               }}
             >
               {finale.no}
