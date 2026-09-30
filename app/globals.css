@@ -778,7 +778,7 @@ body {
 .memory-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 1.6rem 1.2rem;
+  gap: 2.6rem 1.2rem;
   margin-top: 2.8rem;
   justify-items: center;
 }
@@ -786,7 +786,7 @@ body {
 @media (min-width: 860px) {
   .memory-grid {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 2.2rem 1.6rem;
+    gap: 3.2rem 1.8rem;
   }
 }
 
