@@ -1,28 +1,25 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import { useAnimate, useReducedMotion } from "framer-motion";
 import Image from "next/image";
-import { useMemo, useState, useSyncExternalStore } from "react";
-import hotspots from "../../public/model/hotspots.json";
-import { portfolio } from "../data/portfolio";
+import { useRouter } from "next/navigation";
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react";
+import { portfolio, roomOrder, rooms, type RoomKey } from "../data/portfolio";
+import { model, modelSrc } from "../lib/model";
+import { takeReturnFrom } from "../lib/return";
 
 /*
- * Homepage site model.
- * Images + click areas come from `model/export_web_layers.py` — after editing the
- * Blender file, re-run that script and this component picks up the new files.
+ * Homepage site model ("lights on").
+ * Images + click areas come from model/export_web_layers.py — after editing the
+ * Blender file, re-run that script and this picks up the new files.
  */
 
-type Spot = { polygon: number[][]; focus: number[] };
-const spots = hotspots.buildings as Record<string, Spot>;
-const { siteModel } = portfolio;
-const buildings = siteModel.buildings;
-const ratio = `${hotspots.width} / ${hotspots.height}`;
-const STORAGE_KEY = "ap-lights-on";
-// Cache-buster: changes on every Blender export, so visitors always get the new renders.
-const v = `?v=${hotspots.version}`;
+const { hero } = portfolio;
+const ratio = `${model.width} / ${model.height}`;
+const PUSH_SCALE = 3.4;
 
-// Rooms you've already stepped into stay lit (visited links, in architecture).
-// Tiny localStorage-backed store; falls back to memory if storage is blocked.
+// ---- visited rooms stay lit (localStorage, memory fallback) -------------
+const STORAGE_KEY = "ap-lights-on";
 let memory = "[]";
 const listeners = new Set<() => void>();
 const readLights = () => {
@@ -43,137 +40,140 @@ const subscribe = (cb: () => void) => {
   listeners.add(cb);
   return () => listeners.delete(cb);
 };
-const parseLights = (raw: string): string[] => {
+const parseLights = (raw: string): RoomKey[] => {
   try {
     const v = JSON.parse(raw);
-    return Array.isArray(v) ? v.filter((k) => typeof k === "string" && k in spots) : [];
+    return Array.isArray(v) ? v.filter((k): k is RoomKey => typeof k === "string" && k in model.spots) : [];
   } catch {
     return [];
   }
 };
 
+// Zoom origin = the building's window, as 0–1 of the image.
+const origin = (key: RoomKey) => {
+  const [x, y] = model.spots[key].focus;
+  return { originX: x, originY: y };
+};
+
 export default function SiteModelHero() {
+  const router = useRouter();
   const reduceMotion = useReducedMotion();
-  const [hovered, setHovered] = useState<string | null>(null);
-  const [entering, setEntering] = useState<string | null>(null);
+  const [scope, animate] = useAnimate<HTMLDivElement>();
+  const [hovered, setHovered] = useState<RoomKey | null>(null);
+  const [entering, setEntering] = useState<RoomKey | null>(null);
+  const busy = useRef(false);
   const raw = useSyncExternalStore(subscribe, readLights, () => "[]");
   const visited = useMemo(() => parseLights(raw), [raw]);
 
-  const remember = (key: string) => {
-    if (!visited.includes(key)) writeLights([...visited, key]);
-  };
-  const lightsOff = () => writeLights([]);
-
-  const goTo = (href: string) => {
-    const el = document.querySelector(href);
-    el?.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth" });
-    history.replaceState(null, "", href);
-  };
-
-  const enter = (key: string, href: string) => {
-    if (entering) return;
-    remember(key);
+  // Arrival: either pull back out of the room you came from, or a gentle rise.
+  useEffect(() => {
+    const el = scope.current;
+    if (!el) return;
+    const from = takeReturnFrom() as RoomKey | null;
     if (reduceMotion) {
-      goTo(href);
+      animate(el, { opacity: 1 }, { duration: 0 });
       return;
     }
-    setEntering(key);
+    if (from && from in model.spots) {
+      animate(el, origin(from), { duration: 0 });
+      animate(el, { scale: [PUSH_SCALE, 1], opacity: [0, 1, 1] }, { duration: 1.0, ease: [0.22, 1, 0.36, 1] });
+    } else {
+      animate(el, { y: [24, 0], opacity: [0, 1] }, { duration: 0.8, ease: [0.22, 1, 0.36, 1] });
+    }
+  }, [animate, reduceMotion, scope]);
+
+  const remember = (key: RoomKey) => {
+    if (!visited.includes(key)) writeLights([...visited, key]);
   };
 
-  const active = buildings.find((b) => b.key === (entering ?? hovered));
-  const focus = entering ? spots[entering].focus : [0.5, 0.5];
+  const enter = async (key: RoomKey) => {
+    if (busy.current) return;
+    const room = rooms[key];
+    remember(key);
+
+    if (key === "resume") {
+      if (room.href) window.open(room.href, "_blank", "noopener,noreferrer");
+      return;
+    }
+    if (reduceMotion || !scope.current) {
+      router.push(room.href);
+      return;
+    }
+    busy.current = true;
+    setEntering(key);
+    router.prefetch(room.href);
+    await animate(scope.current, origin(key), { duration: 0 });
+    await animate(
+      scope.current,
+      { scale: [1, PUSH_SCALE], opacity: [1, 1, 0] },
+      { duration: 1.0, ease: [0.65, 0, 0.35, 1] }
+    );
+    router.push(room.href);
+  };
+
+  const activeKey = entering ?? hovered;
+  const active = activeKey ? rooms[activeKey] : null;
 
   return (
-    <section
-      className="relative overflow-x-clip bg-[linear-gradient(180deg,#efe4d8_0%,#f3ebe2_65%,var(--background)_100%)] -mt-20 px-6 pb-16 pt-24 md:px-12 md:pb-24"
+    <main
+      className="relative -mt-20 overflow-hidden bg-[linear-gradient(180deg,#efe4d8_0%,#f3ebe2_70%,#f6f1ea_100%)] px-6 pt-24 md:px-12"
       aria-labelledby="hero-heading"
     >
-      <div className="mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-6 lg:min-h-[calc(100vh-6rem)] lg:grid-cols-12 lg:gap-4">
+      <div className="mx-auto grid min-h-[calc(100svh-6rem)] w-full max-w-6xl grid-cols-1 content-center items-center gap-6 pb-10 lg:grid-cols-12 lg:gap-4">
         {/* Copy */}
-        <motion.div
-          className="relative z-10 lg:col-span-4"
-          initial={reduceMotion ? false : { opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-        >
-          <p className="text-[11px] font-medium uppercase tracking-[0.22em] text-[#8a6a50]">
-            {siteModel.kicker}
-          </p>
+        <div className="relative z-10 lg:col-span-4">
+          <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[#8a6a50]">{hero.kicker}</p>
           <h1
             id="hero-heading"
             className="font-serif mt-5 text-[2.6rem] font-medium leading-[1.04] tracking-tight text-[var(--foreground)] md:text-[3.6rem]"
           >
-            {siteModel.headline[0]}
+            {hero.headline[0]}
             <br />
-            {siteModel.headline[1]}{" "}
-            <em className="text-[#b5603a]">{siteModel.headline[2]}</em>
+            {hero.headline[1]} <em className="text-[#b5603a]">{hero.headline[2]}</em>
           </h1>
 
           <div className="mt-6 flex items-center gap-2.5">
             <span className="availability-dot" aria-hidden="true" />
             <p className="text-sm text-[var(--muted)]">
-              Currently open to{" "}
-              <span className="font-semibold text-[var(--foreground)]">Full-time roles</span>
+              Currently open to <span className="font-semibold text-[var(--foreground)]">Full-time roles</span>
             </p>
           </div>
 
-          <p className="mt-6 max-w-sm text-base leading-relaxed text-[#6f655d]">
-            {portfolio.hero.bio}
-          </p>
+          <p className="mt-6 max-w-sm text-base leading-relaxed text-[#6f655d]">{hero.bio}</p>
 
           <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-3">
-            <a
-              href="#work"
+            <button
+              type="button"
+              onClick={() => enter("work")}
               className="focus-ring rounded-full border border-[var(--foreground)] px-5 py-2.5 text-sm font-medium text-[var(--foreground)] transition-colors hover:bg-[var(--foreground)] hover:text-[#f3ebe2]"
             >
               Explore my work ↗
-            </a>
-            <a href="#contact" className="focus-ring text-sm text-[var(--muted)]">
+            </button>
+            <button type="button" onClick={() => enter("contact")} className="focus-ring text-sm text-[var(--muted)]">
               Get in touch →
-            </a>
+            </button>
           </div>
-        </motion.div>
+        </div>
 
         {/* Model */}
         <div className="relative -mx-6 md:mx-0 lg:col-span-8 lg:-mr-16 xl:-mr-28">
           <div className="relative w-full" style={{ aspectRatio: ratio }}>
-            <motion.div
-              className="absolute inset-0"
-              style={{ transformOrigin: `${focus[0] * 100}% ${focus[1] * 100}%` }}
-              initial={reduceMotion ? false : { opacity: 0, y: 24 }}
-              animate={
-                entering
-                  ? { scale: 3.4, opacity: [1, 1, 0], y: 0 }
-                  : { scale: 1, opacity: 1, y: 0 }
-              }
-              transition={
-                entering
-                  ? { duration: 1.05, ease: [0.65, 0, 0.35, 1], opacity: { times: [0, 0.7, 1], duration: 1.05 } }
-                  : { duration: 0.8, ease: [0.22, 1, 0.36, 1] }
-              }
-              onAnimationComplete={() => {
-                if (!entering) return;
-                const b = buildings.find((x) => x.key === entering);
-                if (b) goTo(b.href);
-                // reset after the scroll has moved the model out of view
-                window.setTimeout(() => setEntering(null), 450);
-              }}
-            >
+            <div ref={scope} className="model-stage absolute inset-0 opacity-0 will-change-transform">
               <Image
-                src={`/model/base.webp${v}`}
-                alt="A clay architectural site model with four small buildings labelled Work, About, Play and Contact, at dusk."
+                src={modelSrc("base.webp")}
+                alt="A clay architectural site model at dusk with five small buildings: Work, About, Play, Contact and a Resume pavilion."
                 fill
                 preload
                 unoptimized
                 sizes="(min-width: 1024px) 70vw, 100vw"
                 className="pointer-events-none select-none object-contain"
               />
-              {buildings.map((b) => {
-                const lit = hovered === b.key || entering === b.key || visited.includes(b.key);
+              {roomOrder.map((key) => {
+                const lit = activeKey === key || visited.includes(key);
                 return (
                   <Image
-                    key={b.key}
-                    src={`/model/light-${b.key}.webp${v}`}
+                    key={key}
+                    src={modelSrc(`light-${key}.webp`)}
                     alt=""
                     aria-hidden
                     fill
@@ -185,7 +185,7 @@ export default function SiteModelHero() {
                 );
               })}
 
-              {/* Click areas, generated from the Blender camera */}
+              {/* Click areas, traced from the Blender camera */}
               <svg
                 className="absolute inset-0 h-full w-full"
                 viewBox="0 0 1 1"
@@ -193,46 +193,66 @@ export default function SiteModelHero() {
                 role="group"
                 aria-label="Site model navigation"
               >
-                {buildings.map((b) => (
-                  <a
-                    key={b.key}
-                    href={b.href}
-                    aria-label={`${b.number} ${b.label}: ${b.caption}`}
-                    className="model-hotspot"
-                    onMouseEnter={() => setHovered(b.key)}
-                    onMouseLeave={() => setHovered((h) => (h === b.key ? null : h))}
-                    onFocus={() => setHovered(b.key)}
-                    onBlur={() => setHovered((h) => (h === b.key ? null : h))}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      enter(b.key, b.href);
-                    }}
-                  >
-                    <polygon points={spots[b.key].polygon.map((p) => p.join(",")).join(" ")} />
-                  </a>
-                ))}
+                {roomOrder.map((key) => {
+                  const r = rooms[key];
+                  const external = key === "resume";
+                  return (
+                    <a
+                      key={key}
+                      href={r.href || undefined}
+                      target={external && r.href ? "_blank" : undefined}
+                      rel={external ? "noopener noreferrer" : undefined}
+                      tabIndex={0}
+                      role="link"
+                      aria-label={`${r.number} ${r.label}: ${r.caption}`}
+                      className="model-hotspot"
+                      onMouseEnter={() => {
+                        setHovered(key);
+                        if (!external) router.prefetch(r.href);
+                      }}
+                      onMouseLeave={() => setHovered((h) => (h === key ? null : h))}
+                      onFocus={() => setHovered(key)}
+                      onBlur={() => setHovered((h) => (h === key ? null : h))}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        enter(key);
+                      }}
+                      onKeyDown={(e) => {
+                        if (e.key === "Enter" || e.key === " ") {
+                          e.preventDefault();
+                          enter(key);
+                        }
+                      }}
+                    >
+                      <polygon points={model.spots[key].polygon.map((p) => p.join(",")).join(" ")} />
+                    </a>
+                  );
+                })}
               </svg>
-            </motion.div>
+            </div>
           </div>
 
           {/* Caption: what's lit right now */}
-          <div className="mt-2 flex min-h-6 px-6 md:px-0 flex-wrap items-baseline justify-center gap-x-3 text-center text-sm" aria-live="polite">
+          <div
+            className="mt-2 flex min-h-6 flex-wrap items-baseline justify-center gap-x-3 px-6 text-center text-sm md:px-0"
+            aria-live="polite"
+          >
             {active ? (
               <p className="text-[var(--foreground)]">
                 <span className="font-mono text-xs tracking-wider text-[#8a6a50]">{active.number}</span>{" "}
                 <span className="font-medium">{active.label}</span>
-                <span className="text-[var(--muted)]"> · {active.caption} →</span>
+                <span className="text-[var(--muted)]"> · {active.caption}</span>
               </p>
             ) : (
               <p className="text-[var(--muted)]">
-                <span className="pointer-coarse:hidden">{siteModel.hint}</span>
-                <span className="hidden pointer-coarse:inline">{siteModel.hintTouch}</span>
+                <span className="pointer-coarse:hidden">{hero.hint}</span>
+                <span className="hidden pointer-coarse:inline">{hero.hintTouch}</span>
               </p>
             )}
             {visited.length > 0 && !active && (
               <button
                 type="button"
-                onClick={lightsOff}
+                onClick={() => writeLights([])}
                 className="focus-ring text-xs text-[#8a6a50] underline underline-offset-4"
               >
                 Lights off
@@ -241,6 +261,9 @@ export default function SiteModelHero() {
           </div>
         </div>
       </div>
-    </section>
+      <noscript>
+        <style>{`.model-stage { opacity: 1 !important; }`}</style>
+      </noscript>
+    </main>
   );
 }

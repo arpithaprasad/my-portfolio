@@ -66,12 +66,13 @@ M = {
     "about": clay("Clay_About", "#a9b98a"),
     "play": clay("Clay_Play", "#8fa6c9"),
     "contact": clay("Clay_Contact", "#ead7c3"),
+    "resume": clay("Clay_Resume", "#e2b864"),
     "leaf": clay("Leaf", "#8a9c68", bump=0.15),
     "trunk": clay("Trunk", "#8a6a50"),
     "ink": clay("Ink", "#4a3b31", bump=0.0),
     "prop": clay("Prop_Silhouette", "#3a2c24", bump=0.0),
 }
-INT = {k: interior(f"Interior_{k.title()}") for k in ("work", "about", "play", "contact")}
+INT = {k: interior(f"Interior_{k.title()}") for k in ("work", "about", "play", "contact", "resume")}
 
 
 # --------------------------------------------------------------- meshes
@@ -255,9 +256,19 @@ opening(contact, "contact", cf, "Y", 3.8, Z0, 1.25, 1.8, depth=0.9)
 soften(contact)
 sphere("Lantern", (3.8, cf + 0.45, Z0 + 1.45), 0.1, INT["contact"])
 
+# -------------------------------------------------------------- RESUME
+# small pavilion with an overhanging roof slab; opens the resume link
+resume = box("Resume", (0.7, -3.3, Z0 + 0.6), (1.6, 1.2, 1.2), M["resume"])
+roof_r = box("Resume_roof", (0.7, -3.3, Z0 + 1.2 + 0.07), (2.0, 1.6, 0.14), None)
+apply_bool(resume, roof_r, "UNION")
+rf = -3.3 - 0.6
+opening(resume, "resume", rf, "Y", 0.7, Z0, 0.8, 1.0, depth=0.6)
+soften(resume, 0.035)
+box("Resume_sheet", (0.7, rf + 0.5, Z0 + 0.45), (0.32, 0.02, 0.42), M["plinth"])  # a lit page inside
+
 # --------------------------------------------------------------- trees
 for i, (x, y, s) in enumerate([(-6.0, 1.5, 1.0), (-5.6, 3.6, 0.8), (1.6, 3.9, 0.9),
-                               (6.1, -1.3, 0.85), (0.8, -3.6, 0.7), (-1.8, -3.9, 0.6)]):
+                               (6.1, -1.3, 0.85), (-1.8, -3.9, 0.6)]):
     cyl(f"Trunk_{i}", (x, y, Z0 + 0.35 * s), 0.06 * s, 0.7 * s, "Z", M["trunk"], segs=12)
     for j, (dx, dy, dz, r) in enumerate([(0, 0, 0.95, 0.45), (0.25, 0.1, 0.75, 0.32), (-0.2, -0.15, 0.8, 0.34)]):
         sphere(f"Leaf_{i}_{j}", (x + dx * s, y + dy * s, Z0 + dz * s), r * s, M["leaf"])
@@ -276,10 +287,11 @@ def tag(text, loc, size=0.3):
     coll.objects.link(ob)
 
 
-tag("01  WORK", (-1.0, -2.75, Z0 + 0.002))
+tag("01  WORK", (-1.75, -2.75, Z0 + 0.002))
 tag("02  ABOUT", (-4.2, -4.35, Z0 + 0.002))
 tag("03  PLAY", (5.75, 0.55, Z0 + 0.002))
 tag("04  CONTACT", (3.8, -4.35, Z0 + 0.002))
+tag("05  RESUME", (0.7, -4.35, Z0 + 0.002))
 tag("STUDIO AP  ·  SITE MODEL  ·  1:200", (-3.6, 4.35, Z0 + 0.002), 0.22)
 # north arrow
 na = bpy.data.meshes.new("North")

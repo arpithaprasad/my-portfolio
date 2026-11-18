@@ -1,8 +1,12 @@
 import type { Metadata } from "next";
+import Navbar from "./components/Navbar";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Arpitha Prasad — Product Designer",
+  title: {
+    default: "Arpitha Prasad — Product Designer",
+    template: "%s — Arpitha Prasad",
+  },
   description:
     "Product designer designing digital products that help people navigate complexity.",
 };
@@ -26,7 +30,10 @@ export default function RootLayout({
           rel="stylesheet"
         />
       </head>
-      <body className="min-h-full font-sans">{children}</body>
+      <body className="min-h-full bg-[var(--background)] font-sans text-[var(--foreground)]">
+        <Navbar />
+        {children}
+      </body>
     </html>
   );
 }

@@ -23,11 +23,13 @@ The homepage hero is a Blender scene rendered into layered images.
 
 ## Keep these working
 
-- **Light switches:** the `LIGHT_SWITCHES` empty with `work / about / play / contact` properties drives each building's window glow and lamp. New lamps or glowing materials can use the same drivers (copy one from `Lamp_work`).
+- **Light switches:** the `LIGHT_SWITCHES` empty with `work / about / play / contact / resume` properties drives each building's window glow and lamp. New lamps or glowing materials can use the same drivers (copy one from `Lamp_work`).
 - **Click areas** are traced from every mesh using that building's `Clay_<Name>` or `Interior_<Name>` material, or with the name in the object name (e.g. `Work_balcony`). Plants and props in other materials don't count, which is fine.
 - **Push-in point** is the centre of the `Room_<key>` object (the glowing back wall).
 - **Camera:** you can move it; the click areas follow automatically.
+- **Key plan:** the little site plan on every inner page is traced from the same footprints, top-down, inside the `Plinth` object's bounds.
 
 ## Changing labels or links
 
-Titles, captions and where each building links live in `app/data/portfolio.ts` → `siteModel.buildings`.
+Titles, captions, page colours and where each building links live in `app/data/portfolio.ts` → `rooms`.
+The resume link is `RESUME_URL` at the top of that file.

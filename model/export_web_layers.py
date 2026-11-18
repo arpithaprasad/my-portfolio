@@ -23,7 +23,7 @@ import numpy as np
 from bpy_extras.object_utils import world_to_camera_view
 from mathutils import Vector
 
-KEYS = ["work", "about", "play", "contact"]
+KEYS = ["work", "about", "play", "contact", "resume"]
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(os.path.dirname(HERE), "public", "model")
 TMP = os.path.join(OUT, "_tmp")
@@ -126,10 +126,21 @@ def to_screen(co):
     return (round(v.x, 4), round(1 - v.y, 4))
 
 
+# Key plan: top-down footprints, normalised to the plinth (north up).
+plinth = bpy.data.objects["Plinth"]
+pc = [plinth.matrix_world @ Vector(c) for c in plinth.bound_box]
+px0, px1 = min(c.x for c in pc), max(c.x for c in pc)
+py0, py1 = min(c.y for c in pc), max(c.y for c in pc)
+
+
+def to_plan(co):
+    return (round((co.x - px0) / (px1 - px0), 4), round(1 - (co.y - py0) / (py1 - py0), 4))
+
+
 spots = {}
 for k in KEYS:
     mats = {f"Clay_{k.title()}", f"Interior_{k.title()}"}
-    pts = []
+    pts, plan_pts = [], []
     for ob in scene.objects:
         if ob.type != "MESH" or ob.name.startswith("Tag_"):
             continue
@@ -139,7 +150,10 @@ for k in KEYS:
             continue
         ev = ob.evaluated_get(dg)
         me = ev.to_mesh()
-        pts += [to_screen(ev.matrix_world @ v.co) for v in me.vertices]
+        for v in me.vertices:
+            wco = ev.matrix_world @ v.co
+            pts.append(to_screen(wco))
+            plan_pts.append(to_plan(wco))
         ev.to_mesh_clear()
     room = next((o for o in scene.objects if o.name.lower().startswith(f"room_{k}")), None)
     if room:
@@ -148,10 +162,10 @@ for k in KEYS:
     else:
         xs, ys = zip(*pts)
         focus = (round(sum(xs) / len(xs), 4), round(sum(ys) / len(ys), 4))
-    spots[k] = {"polygon": hull(pts), "focus": focus}
+    spots[k] = {"polygon": hull(pts), "focus": focus, "plan": hull(plan_pts)}
 
 with open(os.path.join(OUT, "hotspots.json"), "w") as f:
-    json.dump({"version": int(__import__("time").time()), "width": scene.render.resolution_x, "height": scene.render.resolution_y, "buildings": spots}, f, indent=1)
+    json.dump({"version": int(__import__("time").time()), "width": scene.render.resolution_x, "height": scene.render.resolution_y, "plinthAspect": round((px1 - px0) / (py1 - py0), 4), "buildings": spots}, f, indent=1)
 
 for k, v in saved.items():
     ctrl[k] = v
