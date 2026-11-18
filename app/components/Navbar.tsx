@@ -11,16 +11,16 @@ export default function Navbar() {
       >
         <a
           href="#"
-          className="focus-ring text-base font-medium tracking-tight text-[var(--foreground)]"
+          className="focus-ring shrink-0 text-sm font-medium tracking-tight text-[var(--foreground)] sm:text-base"
         >
           Arpitha Prasad
         </a>
-        <ul className="flex items-center gap-7 md:gap-9">
+        <ul className="flex items-center gap-4 sm:gap-7 md:gap-9">
           {portfolio.nav.map((link) => (
             <li key={link.label}>
               <a
                 href={link.href}
-                className="nav-link focus-ring text-sm font-light text-[var(--foreground)]"
+                className="nav-link focus-ring text-[13px] font-light text-[var(--foreground)] sm:text-sm"
               >
                 {link.label}
               </a>

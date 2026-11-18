@@ -1,7 +1,8 @@
 import About from "./components/About";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
-import Hero from "./components/Hero";
+import Play from "./components/Play";
+import SiteModelHero from "./components/SiteModelHero";
 import Navbar from "./components/Navbar";
 import Work from "./components/Work";
 
@@ -10,9 +11,10 @@ export default function Home() {
     <div className="min-h-screen bg-[var(--background)] text-[var(--foreground)]">
       <Navbar />
       <main>
-        <Hero />
+        <SiteModelHero />
         <Work />
         <About />
+        <Play />
         <Contact />
       </main>
       <Footer />

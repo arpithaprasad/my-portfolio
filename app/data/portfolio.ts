@@ -2,6 +2,7 @@ export const portfolio = {
   nav: [
     { label: "Work", href: "#work" },
     { label: "About", href: "#about" },
+    { label: "Play", href: "#play" },
     { label: "Contact", href: "#contact" },
   ],
   hero: {
@@ -9,6 +10,20 @@ export const portfolio = {
     name: "Arpitha Prasad",
     rotatingWords: ["designer", "coder", "hiker", "matcha drinker"],
     bio: "Designing digital products that help people navigate complexity — with an architect's eye and a coder's hands.",
+  },
+  // Homepage site model. `key` must match the building names in the Blender
+  // export (public/model/light-<key>.webp + hotspots.json).
+  siteModel: {
+    kicker: "Studio AP · Site model · 4 volumes",
+    headline: ["From building spaces", "to shaping", "experiences."],
+    hint: "Hover a building to switch its lights on. Click to step inside.",
+    hintTouch: "Tap a building to step inside.",
+    buildings: [
+      { key: "work", number: "01", label: "Work", caption: "Selected case studies", href: "#work" },
+      { key: "about", number: "02", label: "About", caption: "The architect turned designer", href: "#about" },
+      { key: "play", number: "03", label: "Play", caption: "XR, Unity and side experiments", href: "#play" },
+      { key: "contact", number: "04", label: "Contact", caption: "Say hello", href: "#contact" },
+    ],
   },
   projects: [
     {
@@ -34,6 +49,32 @@ export const portfolio = {
         "Making craft communities visible through cultural storytelling",
       tags: ["UX/Visual Design", "Culture"],
       href: "#work",
+    },
+  ],
+  play: [
+    {
+      id: "living-pattern",
+      name: "The Living Pattern",
+      description: "Voice and hand-gesture web prototype for learning Tamil Nadu kolam.",
+      tags: ["Gesture + voice", "Web prototype"],
+    },
+    {
+      id: "creature-chase",
+      name: "The Great Creature Chase",
+      description: "AR scavenger hunt designed for an XR UX course.",
+      tags: ["AR", "XR UX"],
+    },
+    {
+      id: "one-room-many-lives",
+      name: "One Room Many Lives",
+      description: "VR spatial storytelling experience, from design document to Unity prototype.",
+      tags: ["VR", "Unity"],
+    },
+    {
+      id: "oden-stall",
+      name: "Oden Stall",
+      description: "A Spirited Away–inspired night-market scene built in Unity URP.",
+      tags: ["Unity URP", "Environment"],
     },
   ],
   about: {
