@@ -88,7 +88,6 @@ export const pageRooms: Exclude<RoomKey, "resume">[] = ["work", "about", "play",
 export const portfolio = {
   name: "Arpitha Prasad",
   hero: {
-    kicker: "Studio AP · Site model · 5 volumes",
     headline: ["From building spaces", "to shaping", "experiences."],
     bio: "Designing digital products that help people navigate complexity — with an architect's eye and a coder's hands.",
     hint: "Hover a building to switch its lights on. Click to step inside.",

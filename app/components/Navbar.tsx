@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { pageRooms, portfolio, RESUME_URL, rooms } from "../data/portfolio";
 import { markReturnFrom } from "../lib/return";
+import Logo from "./Logo";
 
 export default function Navbar() {
   const pathname = usePathname();
@@ -15,8 +16,9 @@ export default function Navbar() {
         <Link
           href="/"
           onClick={() => current && markReturnFrom(current)}
-          className="focus-ring shrink-0 text-sm font-medium tracking-tight text-[var(--foreground)] sm:text-base"
+          className="focus-ring flex shrink-0 items-center gap-2.5 text-sm font-medium tracking-tight text-[var(--foreground)] sm:text-base"
         >
+          <Logo size={30} />
           {portfolio.name}
         </Link>
         <ul className="flex items-center gap-4 sm:gap-7 md:gap-9">

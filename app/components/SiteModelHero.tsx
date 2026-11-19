@@ -122,10 +122,9 @@ export default function SiteModelHero() {
       <div className="mx-auto grid min-h-[calc(100svh-6rem)] w-full max-w-6xl grid-cols-1 content-center items-center gap-6 pb-10 lg:grid-cols-12 lg:gap-4">
         {/* Copy */}
         <div className="relative z-10 lg:col-span-4">
-          <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[#8a3b3f]">{hero.kicker}</p>
           <h1
             id="hero-heading"
-            className="font-serif mt-5 text-[2.6rem] font-medium leading-[1.04] tracking-tight text-[var(--foreground)] md:text-[3.6rem]"
+            className="font-serif text-[2.6rem] font-medium leading-[1.04] tracking-tight text-[var(--foreground)] md:text-[3.6rem]"
           >
             {hero.headline[0]}
             <br />
