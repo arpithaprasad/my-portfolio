@@ -7,14 +7,19 @@ export const RESUME_URL = "";
 export type RoomKey = "work" | "about" | "play" | "contact" | "resume";
 
 // One "room" per building on the site model. `key` must match the Blender export
-// (public/model/light-<key>.webp + hotspots.json). `color` tints that page.
+// (public/model/light-<key>.webp + hotspots.json).
+// `color` is the building's palette colour (key plan, large marks). `ink` is a
+// darker, text-safe version (4.5:1+ on the page and its header). `tint` is the
+// soft wash at the top of that room's page.
 export const rooms = {
   work: {
     number: "01",
     label: "Work",
     caption: "Selected case studies",
     href: "/work",
-    color: "#b5603a",
+    color: "#6a1229",
+    ink: "#6a1229",
+    tint: "#f2dadd",
     title: "Selected work",
     intro: "Case studies in designing for people navigating complex, high-stakes moments.",
   },
@@ -23,7 +28,9 @@ export const rooms = {
     label: "About",
     caption: "The architect turned designer",
     href: "/about",
-    color: "#6d7c4f",
+    color: "#c04e5c",
+    ink: "#a23a4a",
+    tint: "#f7dfe1",
     title: "A little about me",
     intro: "Trained as an architect, now designing digital products — still obsessed with structure, space and detail.",
   },
@@ -32,7 +39,9 @@ export const rooms = {
     label: "Play",
     caption: "XR, Unity and side experiments",
     href: "/play",
-    color: "#56709a",
+    color: "#f0885e",
+    ink: "#a84a26",
+    tint: "#fce3d7",
     title: "Play",
     intro: "Experiments in XR, gesture, voice and real-time 3D — where I try things before I know they'll work.",
   },
@@ -41,7 +50,9 @@ export const rooms = {
     label: "Contact",
     caption: "Say hello",
     href: "/contact",
-    color: "#9a7458",
+    color: "#f0a262",
+    ink: "#93531a",
+    tint: "#fdecd8",
     title: "Let's talk.",
     intro: "Open to full-time roles, freelance projects, and coffee chats.",
   },
@@ -50,7 +61,9 @@ export const rooms = {
     label: "Resume",
     caption: RESUME_URL ? "Opens in a new tab ↗" : "Coming soon",
     href: RESUME_URL,
-    color: "#b48a2e",
+    color: "#4a0a10",
+    ink: "#4a0a10",
+    tint: "#eedbdb",
     title: "Resume",
     intro: "",
   },
@@ -62,6 +75,8 @@ type Room = {
   caption: string;
   href: string;
   color: string;
+  ink: string;
+  tint: string;
   title: string;
   intro: string;
 };

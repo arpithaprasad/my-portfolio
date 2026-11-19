@@ -22,11 +22,11 @@ export default function PageShell({
 }) {
   const r = rooms[room];
   return (
-    <div style={{ "--room": r.color } as CSSProperties}>
-      <header className="-mt-20 bg-[linear-gradient(180deg,color-mix(in_srgb,var(--room)_14%,#f6f1ea)_0%,var(--background)_100%)] px-6 pb-14 pt-32 md:px-12 md:pb-20 md:pt-40">
+    <div style={{ "--room": r.color, "--room-ink": r.ink, "--room-tint": r.tint } as CSSProperties}>
+      <header className="-mt-20 bg-[linear-gradient(180deg,var(--room-tint)_0%,var(--background)_100%)] px-6 pb-14 pt-32 md:px-12 md:pb-20 md:pt-40">
         <div className="mx-auto flex max-w-6xl flex-col-reverse gap-8 md:flex-row md:items-end md:justify-between md:gap-10">
           <div className="max-w-2xl">
-            <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--room)]">
+            <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[var(--room-ink)]">
               {kicker ?? `${r.number} · ${r.label}`}
             </p>
             <h1 className="font-serif mt-4 text-[2.6rem] font-medium leading-[1.05] tracking-tight text-[var(--foreground)] md:text-[3.75rem]">

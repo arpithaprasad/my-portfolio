@@ -116,20 +116,20 @@ export default function SiteModelHero() {
 
   return (
     <main
-      className="relative -mt-20 overflow-hidden bg-[linear-gradient(180deg,#efe4d8_0%,#f3ebe2_70%,#f6f1ea_100%)] px-6 pt-24 md:px-12"
+      className="relative -mt-20 overflow-hidden bg-[linear-gradient(180deg,#f4e1dc_0%,#f8ece6_70%,var(--background)_100%)] px-6 pt-24 md:px-12"
       aria-labelledby="hero-heading"
     >
       <div className="mx-auto grid min-h-[calc(100svh-6rem)] w-full max-w-6xl grid-cols-1 content-center items-center gap-6 pb-10 lg:grid-cols-12 lg:gap-4">
         {/* Copy */}
         <div className="relative z-10 lg:col-span-4">
-          <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[#8a6a50]">{hero.kicker}</p>
+          <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[#8a3b3f]">{hero.kicker}</p>
           <h1
             id="hero-heading"
             className="font-serif mt-5 text-[2.6rem] font-medium leading-[1.04] tracking-tight text-[var(--foreground)] md:text-[3.6rem]"
           >
             {hero.headline[0]}
             <br />
-            {hero.headline[1]} <em className="text-[#b5603a]">{hero.headline[2]}</em>
+            {hero.headline[1]} <em className="text-[var(--rose)]">{hero.headline[2]}</em>
           </h1>
 
           <div className="mt-6 flex items-center gap-2.5">
@@ -139,13 +139,13 @@ export default function SiteModelHero() {
             </p>
           </div>
 
-          <p className="mt-6 max-w-sm text-base leading-relaxed text-[#6f655d]">{hero.bio}</p>
+          <p className="mt-6 max-w-sm text-base leading-relaxed text-[var(--muted)]">{hero.bio}</p>
 
           <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-3">
             <button
               type="button"
               onClick={() => enter("work")}
-              className="focus-ring rounded-full border border-[var(--foreground)] px-5 py-2.5 text-sm font-medium text-[var(--foreground)] transition-colors hover:bg-[var(--foreground)] hover:text-[#f3ebe2]"
+              className="focus-ring rounded-full border border-[var(--foreground)] px-5 py-2.5 text-sm font-medium text-[var(--foreground)] transition-colors hover:bg-[var(--foreground)] hover:text-[var(--background)]"
             >
               Explore my work ↗
             </button>
@@ -239,7 +239,7 @@ export default function SiteModelHero() {
           >
             {active ? (
               <p className="text-[var(--foreground)]">
-                <span className="font-mono text-xs tracking-wider text-[#8a6a50]">{active.number}</span>{" "}
+                <span className="font-mono text-xs tracking-wider text-[#8a3b3f]">{active.number}</span>{" "}
                 <span className="font-medium">{active.label}</span>
                 <span className="text-[var(--muted)]"> · {active.caption}</span>
               </p>
@@ -253,7 +253,7 @@ export default function SiteModelHero() {
               <button
                 type="button"
                 onClick={() => writeLights([])}
-                className="focus-ring text-xs text-[#8a6a50] underline underline-offset-4"
+                className="focus-ring text-xs text-[#8a3b3f] underline underline-offset-4"
               >
                 Lights off
               </button>

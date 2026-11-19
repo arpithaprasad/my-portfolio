@@ -1,12 +1,19 @@
 @import "tailwindcss";
 
 :root {
-  --background: #fafaf8;
-  --foreground: #1a1a1a;
-  --muted: #888888;
-  --accent: #3d7a74;
+  /* Warm palette: oxblood → burgundy → rose → coral → apricot */
+  --oxblood: #4a0a10;
+  --burgundy: #6a1229;
+  --rose: #c04e5c;
+  --coral: #f0885e;
+  --apricot: #f0a262;
+
+  --background: #faf9f6;
+  --foreground: #2a1418;
+  --muted: #6e5a5c; /* 6:1 on background */
+  --accent: var(--burgundy); /* 11.5:1 on background */
   --surface: #ffffff;
-  --border: #e8e8e8;
+  --border: #ebdfdc;
   --font-serif: "Fraunces", ui-serif, Georgia, serif;
   --font-body: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
   --font-hand: "Caveat", cursive;

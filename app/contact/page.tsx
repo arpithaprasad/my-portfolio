@@ -23,7 +23,7 @@ export default function ContactPage() {
               className="focus-ring group flex items-baseline justify-between gap-6 border-b border-[var(--border)] py-6 first:border-t"
             >
               <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-[var(--muted)]">{l.label}</span>
-              <span className="font-serif text-xl text-[var(--foreground)] transition-colors group-hover:text-[var(--room)] md:text-2xl">
+              <span className="font-serif text-xl text-[var(--foreground)] transition-colors group-hover:text-[var(--room-ink)] md:text-2xl">
                 {l.value} {l.external ? "↗" : "→"}
               </span>
             </a>
