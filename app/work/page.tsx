@@ -28,14 +28,16 @@ export default function WorkPage() {
                     alt=""
                     fill
                     sizes="(min-width: 768px) 560px, 100vw"
-                    className="object-cover object-center"
+                    className="object-cover object-right"
                   />
                 ) : (
                   <span className="absolute inset-0 grid place-items-center text-sm text-[var(--muted)]">
                     Project image coming soon
                   </span>
                 )}
-                <span className="relative font-mono text-[11px] tracking-[0.18em] text-[var(--card)]">{cs.sheet}</span>
+                {!(cs.hero && hasImage(cs.hero.src)) && (
+                  <span className="relative font-mono text-[11px] tracking-[0.18em] text-[var(--card)]">{cs.sheet}</span>
+                )}
               </div>
               <div className="flex flex-1 flex-col p-6">
                 <h2 className="text-[22px] font-semibold tracking-tight">{cs.name}</h2>
