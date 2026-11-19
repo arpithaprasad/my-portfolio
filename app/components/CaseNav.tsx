@@ -69,7 +69,7 @@ export default function CaseNav({
               <a
                 href={`#${it.id}`}
                 aria-current={on ? "location" : undefined}
-                className={`focus-ring relative block py-2 pl-4 text-sm transition-colors ${
+                className={`focus-ring relative block py-1.5 pl-4 text-sm transition-colors [@media(max-height:760px)]:py-1 [@media(max-height:760px)]:text-[13px] ${
                   on ? "font-semibold text-[var(--foreground)]" : "text-[var(--muted)] hover:text-[var(--foreground)]"
                 }`}
               >

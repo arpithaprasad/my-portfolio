@@ -71,13 +71,16 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
       <div className="mx-auto max-w-7xl px-6 pt-28 md:px-12 lg:grid lg:grid-cols-[minmax(240px,300px)_minmax(0,1fr)] lg:gap-x-16 lg:pt-20">
         {/* Desktop sidebar */}
         <aside className="hidden lg:block">
-          <div className="sticky top-20 flex max-h-[calc(100svh-5rem)] flex-col gap-5 overflow-y-auto py-10">
+          {/* Pinned, never scrolls on its own: on shorter screens the description and tags drop out so the links still fit. */}
+          <div className="sticky top-20 flex flex-col gap-4 py-8 [@media(max-height:760px)]:gap-3 [@media(max-height:760px)]:py-5">
             {back}
             {kicker}
-            <h1 className="font-serif text-[2.1rem] font-medium leading-[1.08] tracking-tight">{title}</h1>
-            <p className="text-sm leading-relaxed text-[var(--muted)]">{cs.description}</p>
-            {tags}
-            <div className="mt-4 border-t border-[var(--border)] pt-5">
+            <h1 className="font-serif text-[1.85rem] font-medium leading-[1.1] tracking-tight [@media(max-height:760px)]:text-[1.6rem]">
+              {title}
+            </h1>
+            <p className="text-sm leading-relaxed text-[var(--muted)] [@media(max-height:900px)]:hidden">{cs.description}</p>
+            <div className="[@media(max-height:820px)]:hidden">{tags}</div>
+            <div className="mt-2 border-t border-[var(--border)] pt-4 [@media(max-height:760px)]:pt-3">
               <CaseNav items={nav} color={cs.color} variant="sidebar" />
             </div>
           </div>
