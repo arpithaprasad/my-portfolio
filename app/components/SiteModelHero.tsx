@@ -116,7 +116,8 @@ export default function SiteModelHero() {
 
   return (
     <main
-      className="relative -mt-20 overflow-hidden bg-[linear-gradient(180deg,#f4e1dc_0%,#f8ece6_70%,var(--background)_100%)] px-6 pt-24 md:px-12"
+      className="relative -mt-20 overflow-hidden px-6 pt-24 md:px-12"
+      style={{ background: `linear-gradient(180deg, ${model.ground[0]} 0%, ${model.ground[1]} 70%, var(--background) 100%)` }}
       aria-labelledby="hero-heading"
     >
       <div className="mx-auto grid min-h-[calc(100svh-6rem)] w-full max-w-6xl grid-cols-1 content-center items-center gap-6 pb-10 lg:grid-cols-12 lg:gap-4">

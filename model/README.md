@@ -33,3 +33,16 @@ The homepage hero is a Blender scene rendered into layered images.
 
 Titles, captions, page colours and where each building links live in `app/data/portfolio.ts` → `rooms`.
 The resume link is `RESUME_URL` at the top of that file.
+
+## Backup: the original clay model
+
+The first model (terracotta Work, sage About, blue Play, sand Contact, ochre Resume) is kept alongside the warm one:
+
+| File | What it is |
+| --- | --- |
+| `model/original/studio_ap_site_model.blend` | The original model. |
+| `public/model/original/` | Its renders, hover lights and click areas. |
+
+To switch the homepage back, set `MODEL_THEME = "original"` at the top of `app/data/portfolio.ts`. That swaps the renders, the hover lights, the click areas, the homepage ground and the room colours together. Set it back to `"warm"` to return.
+
+The export script only writes the warm model into `public/model/`. To re-export the original, run it on a copy of the original .blend and move the output into `public/model/original/`.

@@ -4,22 +4,44 @@
 //   While it's empty, the Resume pavilion and nav link show "coming soon".
 export const RESUME_URL = "";
 
+// ⬇ Which site model the homepage shows. "warm" is the burgundy-to-apricot model;
+//   "original" is the first clay model (terracotta, sage, blue, sand, ochre), kept as a
+//   backup in public/model/original and model/original. Switching this one line swaps
+//   the renders, the hover lights, the click areas and the matching page colours.
+export const MODEL_THEME: "warm" | "original" = "warm";
+
+// Each building's colour (`color`, for the key plan and large marks), a darker
+// text-safe version (`ink`, 4.5:1+ on the page and its header) and the soft wash
+// at the top of its page (`tint`), per model.
+const roomPalettes = {
+  warm: {
+    work: { color: "#6a1229", ink: "#6a1229", tint: "#f2dadd" },
+    about: { color: "#c04e5c", ink: "#a23a4a", tint: "#f7dfe1" },
+    play: { color: "#f0885e", ink: "#a84a26", tint: "#fce3d7" },
+    contact: { color: "#f0a262", ink: "#93531a", tint: "#fdecd8" },
+    resume: { color: "#4a0a10", ink: "#4a0a10", tint: "#eedbdb" },
+  },
+  original: {
+    work: { color: "#b5603a", ink: "#944f30", tint: "#edddd1" },
+    about: { color: "#6d7c4f", ink: "#5c6842", tint: "#e3e1d4" },
+    play: { color: "#56709a", ink: "#4c6388", tint: "#e0dfdf" },
+    contact: { color: "#9a7458", ink: "#7b5d46", tint: "#e9e0d6" },
+    resume: { color: "#b48a2e", ink: "#7e6120", tint: "#ede3d0" },
+  },
+} as const;
+const palette = roomPalettes[MODEL_THEME];
+
 export type RoomKey = "work" | "about" | "play" | "contact" | "resume";
 
 // One "room" per building on the site model. `key` must match the Blender export
-// (public/model/light-<key>.webp + hotspots.json).
-// `color` is the building's palette colour (key plan, large marks). `ink` is a
-// darker, text-safe version (4.5:1+ on the page and its header). `tint` is the
-// soft wash at the top of that room's page.
+// (public/model/light-<key>.webp + hotspots.json). Colours come from MODEL_THEME above.
 export const rooms = {
   work: {
     number: "01",
     label: "Work",
     caption: "Selected case studies",
     href: "/work",
-    color: "#6a1229",
-    ink: "#6a1229",
-    tint: "#f2dadd",
+    ...palette.work,
     title: "Selected work",
     intro: "Case studies in designing for people navigating complex, high-stakes moments.",
   },
@@ -28,9 +50,7 @@ export const rooms = {
     label: "About",
     caption: "The architect turned designer",
     href: "/about",
-    color: "#c04e5c",
-    ink: "#a23a4a",
-    tint: "#f7dfe1",
+    ...palette.about,
     title: "A little about me",
     intro: "Trained as an architect, now designing digital products — still obsessed with structure, space and detail.",
   },
@@ -39,9 +59,7 @@ export const rooms = {
     label: "Play",
     caption: "XR, Unity and side experiments",
     href: "/play",
-    color: "#f0885e",
-    ink: "#a84a26",
-    tint: "#fce3d7",
+    ...palette.play,
     title: "Play",
     intro: "Experiments in XR, gesture, voice and real-time 3D — where I try things before I know they'll work.",
   },
@@ -50,9 +68,7 @@ export const rooms = {
     label: "Contact",
     caption: "Say hello",
     href: "/contact",
-    color: "#f0a262",
-    ink: "#93531a",
-    tint: "#fdecd8",
+    ...palette.contact,
     title: "Let's talk.",
     intro: "Open to full-time roles, freelance projects, and coffee chats.",
   },
@@ -61,9 +77,7 @@ export const rooms = {
     label: "Resume",
     caption: RESUME_URL ? "Opens in a new tab ↗" : "Coming soon",
     href: RESUME_URL,
-    color: "#4a0a10",
-    ink: "#4a0a10",
-    tint: "#eedbdb",
+    ...palette.resume,
     title: "Resume",
     intro: "",
   },
@@ -136,6 +150,9 @@ export const portfolio = {
     },
   ],
 };
+
+// Tools listed in the footer's "Built with" row.
+export const builtWith = ["Figma", "Blender", "Next.js", "React", "Tailwind CSS", "Framer Motion", "Vercel"];
 
 // Case studies. Each one gets a page at /work/<slug>.
 // Text in [square brackets] is a placeholder — replace it with your own.
