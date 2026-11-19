@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
+import { hasImage } from "../components/CaseFigure";
 import PageShell from "../components/PageShell";
 import { caseStudies } from "../data/portfolio";
 
@@ -20,10 +22,20 @@ export default function WorkPage() {
                 className="relative flex aspect-[16/10] items-end p-5"
                 style={{ background: `color-mix(in srgb, ${cs.color} 16%, #f4efe8)` }}
               >
-                <span className="font-mono text-[11px] tracking-[0.18em] text-[var(--card)]">{cs.sheet}</span>
-                <span className="absolute inset-0 grid place-items-center text-sm text-[var(--muted)]">
-                  Project image coming soon
-                </span>
+                {cs.hero && hasImage(cs.hero.src) ? (
+                  <Image
+                    src={cs.hero.src}
+                    alt=""
+                    fill
+                    sizes="(min-width: 768px) 560px, 100vw"
+                    className="object-cover object-center"
+                  />
+                ) : (
+                  <span className="absolute inset-0 grid place-items-center text-sm text-[var(--muted)]">
+                    Project image coming soon
+                  </span>
+                )}
+                <span className="relative font-mono text-[11px] tracking-[0.18em] text-[var(--card)]">{cs.sheet}</span>
               </div>
               <div className="flex flex-1 flex-col p-6">
                 <h2 className="text-[22px] font-semibold tracking-tight">{cs.name}</h2>
